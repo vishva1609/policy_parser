@@ -1,5 +1,5 @@
 """
-Simple document processing with PyMuPDF.
+Enhanced Text Extraction with Intelligent Chunking and Excel Search
 """
 from src.pipeline import DocumentPipeline
 from pathlib import Path
@@ -7,72 +7,86 @@ import sys
 
 
 def main():
-    """Run the pipeline."""
+    print("\n" + "="*80)
+    print("ENHANCED DOCUMENT PROCESSING - INTELLIGENT CHUNKING")
+    print("="*80)
     
     # Initialize pipeline
     pipeline = DocumentPipeline(
-        chunk_by="section",
-        embedding_model="all-MiniLM-L6-v2",
-        output_dir="./output"
+        output_dir="output",
+        max_chunk_chars=3000,  # Maximum 3000 characters per chunk
+        min_chunk_chars=500    # Minimum 500 characters
     )
     
-    # Check for PDF path argument
+    # Get PDF path
     if len(sys.argv) > 1:
         pdf_path = sys.argv[1]
-        if not Path(pdf_path).exists():
-            print(f"Error: File not found: {pdf_path}")
-            return
-        
-        # Process single PDF
-        results = pipeline.process_document(pdf_path)
-        
     else:
-        # Process all PDFs in samples folder
-        samples_dir = Path("./samples")
-        pdf_files = list(samples_dir.glob("*.pdf"))
+        pdf_path = "samples/Information Security & Management Policy v3.pdf"
+    
+    if not Path(pdf_path).exists():
+        print(f"Error: File not found: {pdf_path}")
+        return
+    
+    try:
+        # Process with intelligent chunking
+        results = pipeline.process_document(
+            pdf_path,
+            output_format="txt",      # or "json" or "md"
+            overwrite_files=False     # Don't overwrite existing files
+        )
         
-        if not pdf_files:
-            print("\nNo PDF files found in ./samples directory")
-            print("Usage: python text_extraction.py <path_to_pdf>")
-            print("   or: Place PDF files in ./samples directory")
-            return
+        # Display statistics
+        print("\n📊 PROCESSING STATISTICS:")
+        print("-" * 80)
+        print(f"  Total Pages:        {results['stats']['total_pages']}")
+        print(f"  Total Sections:     {results['stats']['total_sections']}")
+        print(f"  Total Chunks:       {results['stats']['total_chunks']}")
+        print(f"  Avg Chunk Size:     {results['stats']['avg_chunk_size']} chars")
+        print(f"  Files Created:      {results['stats']['total_files_created']}")
+        print("-" * 80)
         
-        print(f"\nFound {len(pdf_files)} PDF file(s)")
-        for pdf_file in pdf_files:
-            try:
-                pipeline.process_document(str(pdf_file))
-            except Exception as e:
-                print(f"Error processing {pdf_file.name}: {e}")
-                continue
+        # Example: Search in Excel
+        print("\n🔍 EXCEL SEARCH EXAMPLE:")
+        print("-" * 80)
+        search_term = "security"
+        print(f"Searching for: '{search_term}'")
+        excel_results = pipeline.search_in_excel(results['excel_path'], search_term)
         
-        # Show statistics
-        print("\n" + "=" * 60)
-        print("Pipeline Statistics")
-        print("=" * 60)
-        stats = pipeline.get_stats()
-        print(f"Vector Database: {stats['vector_db']['total_chunks']} chunks")
-        print(f"Knowledge Graph: {stats['knowledge_graph']['nodes']} nodes")
-        print("=" * 60)
+        # Example: Semantic search
+        print("\n🔍 SEMANTIC SEARCH EXAMPLE:")
+        print("-" * 80)
+        query = "information security policy"
+        print(f"Query: '{query}'")
+        search_results = pipeline.search(query, n_results=3)
         
-        # Example search
-        if stats['vector_db']['total_chunks'] > 0:
-            print("\n" + "=" * 60)
-            print("Example Search")
-            print("=" * 60)
-            query = input("\nEnter search query (or press Enter to skip): ").strip()
-            
-            if query:
-                results = pipeline.search(query, n_results=3)
-                
-                print(f"\nTop results for: '{query}'")
-                print("-" * 60)
-                
-                for result in results['results']:
-                    print(f"\n[{result['rank']}] Score: {result['score']}")
-                    print(f"Document: {result['document']}")
-                    print(f"Section: {result['section']}")
-                    print(f"Pages: {result['pages']}")
-                    print(f"Text: {result['text'][:200]}...")
+        if search_results and 'results' in search_results:
+            print(f"\nTop 3 semantic search results:\n")
+            for result in search_results['results'][:3]:
+                print(f"[{result['rank']}] Score: {result['score']}")
+                print(f"    Section: {result.get('section_title', 'N/A')}")
+                print(f"    Pages: {result.get('pages', 'N/A')}")
+                print(f"    Text: {result['text'][:120]}...")
+                print()
+        
+        # Summary
+        print("\n📂 OUTPUT FILES:")
+        print("-" * 80)
+        print(f"✓ Excel Index:     {results['excel_path']}")
+        print(f"✓ Chunk Files:     {len(results['chunk_files'])} files in output/chunks/")
+        print(f"✓ Chunk Index:     {results['index_path']}")
+        print(f"✓ Vector DB:       output/vectordb/")
+        print(f"✓ JSON Outputs:    output/[document]_parsed.json, _chunks.json, _graph.json")
+        print("-" * 80)
+        
+        print("\n✅ Processing complete!\n")
+        print("💡 TIP: Open the Excel file to search content and find page numbers quickly!")
+        print("💡 TIP: Existing chunk files were not overwritten. Use overwrite_files=True to replace.\n")
+        
+    except Exception as e:
+        print(f"\n❌ Error: {str(e)}")
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":
