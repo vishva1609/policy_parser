@@ -1,54 +1,37 @@
 # Document Processing Pipeline
 
-A simple, fast, and reliable PDF processing pipeline with semantic search capabilities.
+A fast PDF processing pipeline with **semantic search** and **AI-powered policy compliance analysis**.
 
 ## Features
 
-- **PDF Parsing**: Extract text and structure from PDFs using PyMuPDF
-- **Smart Chunking**: Split documents into sections with hierarchical context
-- **Semantic Embeddings**: Generate vector embeddings for semantic search
-- **Vector Database**: Index and search documents using ChromaDB
-- **Knowledge Graph**: Track document relationships and structure
+| Feature | Standard Mode | AI Mode |
+|---|---|---|
+| PDF parsing & chunking | ✅ | ✅ |
+| Semantic search (ChromaDB) | ✅ | ✅ |
+| Excel searchable index | ✅ | ✅ |
+| Knowledge graph | ✅ | ✅ |
+| Policy statement extraction | ❌ | ✅ |
+| Compliance question generation | ❌ | ✅ |
+| Requirement extraction | ❌ | ✅ |
 
 ## Installation
 
 ```bash
-pip install pymupdf sentence-transformers chromadb networkx pydantic numpy tqdm
+# Standard mode
+pip install pymupdf sentence-transformers chromadb networkx pydantic numpy tqdm pandas openpyxl
+
+# AI mode (adds Mistral integration)
+pip install mistralai python-dotenv
 ```
-
-That's it! No complex dependencies or external tools required.
-
-## Quick Start
-
-### 1. Place PDFs in the samples folder
-
-```bash
-# Copy your PDF files
-cp your_document.pdf samples/
-```
-
-### 2. Run the pipeline
-
-```bash
-python text_extraction.py
-```
-
-### 3. Search your documents
-
-The pipeline will prompt you to enter a search query after processing.
 
 ## Usage
 
-### Process a Single PDF
-
 ```bash
-python text_extraction.py path/to/document.pdf
-```
+# Standard processing
+python text_extraction.py [path/to/document.pdf]
 
-### Process All PDFs in samples/
-
-```bash
-python text_extraction.py
+# AI-powered policy analysis
+python text_extraction.py [path/to/document.pdf] --ai
 ```
 
 ### Python API
@@ -56,309 +39,186 @@ python text_extraction.py
 ```python
 from src.pipeline import DocumentPipeline
 
-# Initialize pipeline
 pipeline = DocumentPipeline(
-    chunk_by="section",              # or "paragraph"
+    chunk_by="section",          # or "paragraph"
     embedding_model="all-MiniLM-L6-v2",
-    output_dir="./output"
+    output_dir="./output",
+    max_chunk_chars=3000,
+    min_chunk_chars=500
 )
 
-# Process a document
 results = pipeline.process_document("document.pdf")
 
-# Access results
-print(f"Sections: {len(results['document'].sections)}")
-print(f"Chunks: {len(results['chunks'])}")
-
-# Search across all indexed documents
-search_results = pipeline.search("data security", n_results=5)
-
-# Display results
+# Semantic search
+search_results = pipeline.search("data security policy", n_results=5)
 for result in search_results['results']:
     print(f"[{result['rank']}] Score: {result['score']}")
-    print(f"Document: {result['document']}")
-    print(f"Section: {result['section']}")
-    print(f"Text: {result['text'][:200]}...")
-    print()
+    print(f"Section: {result.get('section_title')}, Pages: {result.get('pages')}")
+    print(result['text'][:200])
 
-# Get statistics
-stats = pipeline.get_stats()
-print(f"Total indexed chunks: {stats['vector_db']['total_chunks']}")
-print(f"Knowledge graph nodes: {stats['knowledge_graph']['nodes']}")
+# Keyword search via Excel
+excel_results = pipeline.search_in_excel(results['excel_path'], "security")
 ```
 
-## Pipeline Stages
-
-### Stage 1: Parse PDF
-- Extracts text from all pages
-- Identifies sections and headings
-- Preserves document structure
-- Saves to `output/*_parsed.json`
-
-### Stage 2: Chunk & Enrich
-- Splits document into semantic chunks
-- Adds parent context (breadcrumb trail)
-- Preserves page references
-- Saves to `output/*_chunks.json`
-
-### Stage 3: Embed & Index
-- Generates semantic embeddings
-- Indexes in ChromaDB vector database
-- Enables semantic search
-
-### Stage 4: Knowledge Graph
-- Builds document relationship graph
-- Tracks sections and chunks
-- Saves to `output/*_graph.json`
-
-## Output Files
-
-After processing, the pipeline generates:
+## Output Structure
 
 ```
 output/
-├── vectordb/                      # ChromaDB vector database
-├── document_parsed.json           # Hierarchical document structure
-├── document_chunks.json           # Chunks with metadata
-└── document_graph.json            # Knowledge graph
+├── vectordb/                          # ChromaDB vector database
+├── chunks/[document]/
+│   ├── chunk_001.txt                  # Individual chunk files
+│   └── index.json
+├── [document]_searchable_index.xlsx   # Excel search interface
+├── [document]_parsed.json             # Hierarchical structure
+├── [document]_graph.json              # Knowledge graph
+│
+│   # AI mode only:
+├── ai_compliance_questions.json
+├── ai_compliance_questions.xlsx       # 4 sheets: All / By Category / By Type / Requirements
+└── policy_statements.json
 ```
 
-## Configuration Options
+## Configuration
 
-### Chunking Strategy
-
+**Chunking strategies:**
 ```python
-# Section-level chunking (default)
-pipeline = DocumentPipeline(chunk_by="section")
-
-# Paragraph-level chunking (more granular)
-pipeline = DocumentPipeline(chunk_by="paragraph")
+DocumentPipeline(chunk_by="section", max_chunk_chars=3000, min_chunk_chars=500)
+DocumentPipeline(chunk_by="paragraph", max_chunk_chars=2000)
 ```
 
-### Embedding Model
-
+**Embedding models:**
 ```python
-# Fast, smaller model (default)
-pipeline = DocumentPipeline(
-    embedding_model="all-MiniLM-L6-v2"
-)
-
-# Better quality, larger model
-pipeline = DocumentPipeline(
-    embedding_model="all-mpnet-base-v2"
-)
+DocumentPipeline(embedding_model="all-MiniLM-L6-v2")   # Default — fast, 384-dim
+DocumentPipeline(embedding_model="all-mpnet-base-v2")   # Better quality, 768-dim
 ```
-
-## Project Structure
-
-```
-file-parsing/
-├── src/
-│   ├── __init__.py          # Package initialization
-│   ├── schemas.py           # Pydantic data models
-│   ├── parser.py            # PDF parsing with PyMuPDF
-│   ├── chunker.py           # Document chunking logic
-│   ├── embedder.py          # Embeddings and vector DB
-│   ├── knowledge_graph.py   # Graph management
-│   └── pipeline.py          # Main orchestrator
-├── samples/                 # Input PDFs (place your PDFs here)
-├── output/                  # Generated files
-├── text_extraction.py       # CLI entry point
-├── pyproject.toml          # Dependencies
-└── README.md               # This file
-```
-
-## Example Output
-
-```
-============================================================
-Document Processing Pipeline
-============================================================
-Loading embedding model: all-MiniLM-L6-v2
-Vector database ready (0 existing chunks)
-
-Configuration:
-  - Chunking: section
-  - Embedding: all-MiniLM-L6-v2
-  - Output: ./output
-============================================================
-
-Found 1 PDF file(s)
-
-============================================================
-Processing: research_paper.pdf
-============================================================
-
-STAGE 1: Parse PDF
-------------------------------------------------------------
-Pages: 23
-Extracted 6 sections
-✓ Parsing complete
-
-STAGE 2: Chunk & Enrich
-------------------------------------------------------------
-Created 17 chunks
-
-STAGE 3: Embed & Index
-------------------------------------------------------------
-Generating embeddings for 17 chunks...
-Indexing 17 chunks...
-✓ Embedding and indexing complete
-
-STAGE 4: Knowledge Graph
-------------------------------------------------------------
-✓ Knowledge graph built (24 nodes)
-
-============================================================
-✓ Processing Complete!
-============================================================
-Document: research_paper.pdf
-  - Sections: 6
-  - Chunks: 17
-  - Embeddings: 17
-  - Graph nodes: 24
-============================================================
-
-Enter search query: machine learning
-
-Top results for: 'machine learning'
-------------------------------------------------------------
-
-[1] Score: 0.742
-    Document: research_paper.pdf
-    Section: Introduction
-    Text: Machine learning algorithms have revolutionized...
-```
-
-## Why This Implementation?
-
-### Simple & Reliable
-- Uses PyMuPDF (battle-tested, no external dependencies)
-- Minimal dependencies (just 7 core packages)
-- No complex model downloads or setup
-- Works out of the box on Windows, Mac, Linux
-
-### Fast & Efficient
-- PyMuPDF is one of the fastest PDF parsers
-- Batch embedding generation
-- Efficient vector storage with ChromaDB
-- Processes typical documents in seconds
-
-### Complete Solution
-- PDF parsing and structure extraction
-- Semantic chunking with context
-- Vector embeddings for search
-- Knowledge graph for relationships
-- Ready for RAG applications
-
-## Dependencies
-
-- **pymupdf** - Fast, reliable PDF parsing
-- **sentence-transformers** - Semantic embeddings
-- **chromadb** - Vector database for search
-- **networkx** - Knowledge graph management
-- **pydantic** - Data validation and schemas
-- **numpy** - Numerical operations
-- **tqdm** - Progress bars
-
-## Requirements
-
-- Python 3.9 or higher
-- 2GB RAM minimum
-- Internet connection (for first-time model download)
-
-## Use Cases
-
-- **Document Q&A Systems**: Build chatbots that answer questions from your documents
-- **Semantic Search**: Find relevant content using natural language queries
-- **Document Analysis**: Extract and analyze document structure and content
-- **RAG Applications**: Retrieval-Augmented Generation for LLMs
-- **Knowledge Management**: Index and search large document collections
 
 ## Performance
 
-Typical processing times (on standard hardware):
+| Document Size | Standard | AI Mode |
+|---|---|---|
+| 10 pages | ~5s | +10–15s |
+| 25 pages | ~10s | +20–30s |
+| 50 pages | ~15s | +45–60s |
+| 100 pages | ~30s | +90–120s |
 
-| Document Size | Processing Time |
-|--------------|----------------|
-| 10 pages     | ~5 seconds     |
-| 50 pages     | ~15 seconds    |
-| 100 pages    | ~30 seconds    |
-
-*First run will be slower due to model download (~90MB)*
+> First run is slower due to embedding model download (~90MB). AI mode speed depends on Mistral API rate limits.
 
 ## Troubleshooting
 
-### Import Error
-```bash
-pip install pymupdf sentence-transformers chromadb networkx pydantic numpy tqdm
+| Problem | Solution |
+|---|---|
+| Import errors | Re-run the `pip install` command for your mode |
+| API key error | Create `.env` with `MISTRAL_API_KEY=your_key` ([get key](https://console.mistral.ai/)) |
+| Quota exceeded | Wait or upgrade Mistral tier |
+| No PDFs found | Place PDFs in `./samples/` |
+| Excel file locked | Close the file before re-running |
+| Memory issues | Use `chunk_by="paragraph"` for large documents |
+
+## Demo
+
+**Standard mode:**
+
+```
+$ python text_extraction.py
+
+================================================================================
+DOCUMENT PROCESSING PIPELINE
+================================================================================
+Mode: Standard Processing
+File: samples/Information Security & Management Policy v3.pdf
+================================================================================
+
+Step 1: Parsing PDF...
+  Pages: 23 | Sections: 6
+
+Step 2: Intelligent chunking (max 3000 chars per chunk)...
+  Created 18 chunks from 6 sections
+  - Average chunk size: 2401 characters
+  - Largest chunk:     2994 characters
+  - Smallest chunk:      91 characters
+
+Step 3: Generating Excel searchable index...
+  output\Information Security & Management Policy v3_searchable_index.xlsx
+
+Step 4: Writing chunks to individual txt files...
+  18 files in output\chunks\Information Security & Management Policy v3\
+
+Step 5: Creating chunk index...
+  output\chunks\Information Security & Management Policy v3\index.json
+
+Step 6: Generating embeddings and indexing...
+  Batches: 100%|████████████| 1/1 [00:00<00:00,  1.79it/s]
+  Indexed 18 chunks
+
+Step 7: Building knowledge graph...
+  Saved JSON outputs to output\
+
+PROCESSING STATISTICS:
+  Total Pages:    23
+  Total Sections:  6
+  Total Chunks:   18
+  Avg Chunk Size: 2401 chars
+  Files Created:  19
 ```
 
-### No PDFs Found
-Place PDF files in the `./samples/` directory
+**AI mode** (`--ai` flag) — adds policy analysis and compliance question generation:
 
-### Memory Issues
-Use paragraph-level chunking or process documents one at a time:
-```python
-pipeline = DocumentPipeline(chunk_by="paragraph")
 ```
+$ python text_extraction.py --ai
 
-### Slow First Run
-The embedding model (~90MB) downloads on first use. Subsequent runs are fast.
+================================================================================
+AI-POWERED POLICY DOCUMENT PROCESSING
+================================================================================
+Mode: AI + Compliance Analysis
+File: samples/Information Security & Management Policy v3.pdf
+================================================================================
 
-## Advanced Usage
+... (same 7 processing steps as above) ...
 
-### Custom Chunking Logic
+================================================================================
+AI POLICY ANALYSIS
+================================================================================
 
-```python
-from src.chunker import DocumentChunker
+[1/3] Analyzing policy statements...
+  Found 112 policy statements
+  Identified 45 requirement statements
 
-chunker = DocumentChunker(
-    chunk_by="section",
-    max_words=500  # Maximum words per chunk
-)
+  Requirements by category:
+    General:            12
+    Data Security:      11
+    Access Control:      6
+    Compliance:          6
+    Privacy:             3
+    Vendor Management:   3
+    Incident Response:   1
+    Risk Management:     1
+    Training & Awareness:1
+    Audit & Monitoring:  1
+
+[2/3] Generating AI compliance questions...
+  Model: mistral-small-latest | Statements: 45 | Batch size: 5
+
+  Processing batch 1... 15 questions
+  Processing batch 2... 15 questions
+  Processing batch 3... 15 questions
+  ...
+  Total questions generated: 138
+
+[3/3] Exporting AI results...
+  output\ai_compliance_questions.json
+  output\policy_statements.json
+  output\ai_compliance_questions.xlsx
+
+  Sample questions (first 3):
+  1. What specific procedures and controls have been implemented to protect
+     the confidentiality and integrity of information?
+     Category: General | Type: implementation
+
+  2. How often are these procedures and controls audited to ensure
+     their effectiveness?
+     Category: General | Type: audit
+
+  3. What mechanisms are in place to verify that information is only
+     accessible to authorized persons?
+     Category: General | Type: verification
 ```
-
-### Search with Metadata Filters
-
-```python
-# Search only specific document
-results = pipeline.search(
-    "security policy",
-    n_results=5,
-    where={"document": "policy.pdf"}
-)
-```
-
-### Access Raw Data
-
-```python
-# Get parsed document structure
-doc = results['document']
-for section in doc.sections:
-    print(f"Section: {section.title}")
-    print(f"Pages: {section.page_start}-{section.page_end}")
-    print(f"Elements: {len(section.elements)}")
-
-# Get chunks
-for chunk in results['chunks']:
-    print(f"Type: {chunk.chunk_type}")
-    print(f"Context: {chunk.parent_context}")
-    print(f"Pages: {chunk.pages}")
-```
-
-## License
-
-MIT
-
-## Contributing
-
-Contributions welcome! This is a simplified implementation focused on reliability and ease of use.
-
-## Support
-
-For issues or questions, please check the troubleshooting section above or review the code - it's simple and well-commented.
-
----
-
-**Built with simplicity and reliability in mind. Just works.** 🚀

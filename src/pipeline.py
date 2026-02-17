@@ -84,7 +84,7 @@ class DocumentPipeline:
         # Stage 1: Parse
         print("Step 1: Parsing PDF...")
         parsed_doc = self.parser.parse_pdf(str(pdf_path))
-        print(f"✓ Parsed {parsed_doc.total_pages} pages, {len(parsed_doc.sections)} sections")
+        print(f"Parsed {parsed_doc.total_pages} pages, {len(parsed_doc.sections)} sections")
         
         # Stage 2: Intelligent Chunking
         print(f"\nStep 2: Intelligent chunking (max {self.chunker.max_chars} chars per chunk)...")
@@ -122,18 +122,14 @@ class DocumentPipeline:
         self.graph.add_document(parsed_doc)
         self.graph.add_chunks(chunks)
         
-        # Save outputs
+        # Save outputs (parsed doc and graph only - chunks already saved as individual files)
         parsed_path = self.output_dir / f"{pdf_path.stem}_parsed.json"
         with open(parsed_path, 'w', encoding='utf-8') as f:
             f.write(parsed_doc.model_dump_json(indent=2))
         
-        chunks_path = self.output_dir / f"{pdf_path.stem}_chunks.json"
-        with open(chunks_path, 'w', encoding='utf-8') as f:
-            json.dump([c.model_dump() for c in chunks], f, indent=2)
-        
         graph_path = self.output_dir / f"{pdf_path.stem}_graph.json"
         self.graph.save(str(graph_path))
-        print(f"✓ Saved JSON outputs to {self.output_dir}")
+        print(f"Saved JSON outputs to {self.output_dir}")
         
         # Summary
         print(f"\n{'='*70}")

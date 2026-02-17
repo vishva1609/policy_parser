@@ -70,9 +70,9 @@ class ChunkFileWriter:
             file_paths.append(str(file_path))
         
         if skipped > 0:
-            print(f"✓ Created {created} chunks, skipped {skipped} existing files in {doc_dir}")
+            print(f"Created {created} chunks, skipped {skipped} existing files in {doc_dir}")
         else:
-            print(f"✓ Written {created} chunks to {doc_dir}")
+            print(f"Written {created} chunks to {doc_dir}")
         
         return file_paths
     
@@ -129,7 +129,7 @@ class ChunkFileWriter:
         
         # Check if exists
         if index_path.exists() and not overwrite:
-            print(f"✓ Index file already exists: {index_path}")
+            print(f"Index file already exists: {index_path}")
             return str(index_path)
         
         index_data = {
@@ -153,5 +153,5 @@ class ChunkFileWriter:
         with open(index_path, 'w', encoding='utf-8') as f:
             json.dump(index_data, f, indent=2, ensure_ascii=False)
         
-        print(f"✓ Created index file: {index_path}")
+        print(f"Created index file: {index_path}")
         return str(index_path)

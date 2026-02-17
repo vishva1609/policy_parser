@@ -67,3 +67,4 @@ htmlcov/
 # Temporary files
 *.tmp
 *.temp
+.env

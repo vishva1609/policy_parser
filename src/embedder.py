@@ -132,7 +132,7 @@ class EmbeddingPipeline:
                 metadatas=metadatas[i:end_idx]
             )
         
-        print(f"✓ Indexed {len(embedded_chunks)} chunks")
+        print(f"Indexed {len(embedded_chunks)} chunks")
     
     def search(
         self,

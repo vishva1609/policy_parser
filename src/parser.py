@@ -120,7 +120,7 @@ class SimplePDFParser:
         doc.close()
         
         print(f"Extracted {len(all_sections)} sections")
-        print(f"✓ Parsing complete\n")
+        print(f"Parsing complete\n")
         
         return ParsedDocument(
             document_id=document_id,
