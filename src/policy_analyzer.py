@@ -111,21 +111,25 @@ class PolicyAnalyzer:
     def analyze_document(self, chunks: List) -> List[PolicyStatement]:
         """
         Analyze document chunks and extract policy statements
-        
+
         Args:
             chunks: List of DocumentChunk objects from DocumentPipeline
-            
+
         Returns:
             List of PolicyStatement objects
         """
         statements = []
-        
+
         for chunk in chunks:
             # Access chunk attributes (chunks are Pydantic models)
             chunk_text = chunk.text if hasattr(chunk, 'text') else str(chunk)
             chunk_pages = chunk.pages if hasattr(chunk, 'pages') else [chunk.metadata.get('page', 0)]
             chunk_section = chunk.parent_context[0] if hasattr(chunk, 'parent_context') and chunk.parent_context else 'Unknown'
-            
+
+            # Skip non-content chunks (cover pages, TOC, index)
+            if self._is_non_content(chunk_text):
+                continue
+
             # Get first page number
             page_num = chunk_pages[0] if chunk_pages else 0
             
@@ -149,7 +153,43 @@ class PolicyAnalyzer:
                     statements.append(statement)
         
         return statements
-    
+
+    def _is_non_content(self, text: str) -> bool:
+        """
+        Detect non-content text like table of contents, cover pages, and index pages.
+
+        Heuristics:
+        - High ratio of very short lines (typical of TOC: section titles + page numbers)
+        - Many standalone numbers (page numbers in TOC)
+        - Contains TOC indicator keywords
+        """
+        lines = [line.strip() for line in text.split('\n') if line.strip()]
+
+        if not lines:
+            return True
+
+        # Check for TOC keywords
+        text_lower = text.lower()
+        toc_keywords = ['table of contents', 'contents\n', '\ncontents', 'index\n']
+        if any(kw in text_lower for kw in toc_keywords):
+            return True
+
+        # Count lines that are just numbers (page numbers in TOC)
+        number_lines = sum(1 for line in lines if re.match(r'^\d{1,3}$', line))
+
+        # Count very short lines (section numbers like "5.1", single words)
+        short_lines = sum(1 for line in lines if len(line) < 10)
+
+        # If more than 40% of lines are standalone numbers → likely TOC
+        if len(lines) > 5 and number_lines / len(lines) > 0.4:
+            return True
+
+        # If more than 60% of lines are very short → likely TOC or cover
+        if len(lines) > 5 and short_lines / len(lines) > 0.6:
+            return True
+
+        return False
+
     def _split_into_sentences(self, text: str) -> List[str]:
         """Split text into sentences"""
         # Simple sentence splitting on periods, exclamation, question marks

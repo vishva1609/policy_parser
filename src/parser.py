@@ -16,9 +16,10 @@ class SimplePDFParser:
     def __init__(self):
         """Initialize parser."""
         self.heading_patterns = [
-            r'^#+\s+',  # Markdown-style headings
-            r'^\d+\.\s+[A-Z]',  # Numbered sections
-            r'^[A-Z][A-Z\s]{3,}$',  # ALL CAPS headings
+            r'^#+\s+',                      # Markdown-style headings
+            r'^\d+\.\s+[A-Z]',             # Numbered sections (e.g., "5. Policy")
+            r'^\d+\.\d+(\.\d+)*\s+[A-Z]',  # Sub-sections (e.g., "5.1 Governance", "5.2.1 Access")
+            r'^[A-Z][A-Z\s]{3,}$',          # ALL CAPS headings
         ]
     
     def parse_pdf(self, pdf_path: str) -> ParsedDocument:

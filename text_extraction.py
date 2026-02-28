@@ -26,14 +26,18 @@ except ImportError:
     ADVANCED_AVAILABLE = False
 
 
-def process_advanced(chunks, output_dir):
+def process_advanced(chunks, output_dir, temperature=0.3, max_tokens=2048, top_p=1.0, model="mistral-small-latest"):
     """
     Process chunks to generate compliance questions
-    
+
     Args:
         chunks: List of document chunks
         output_dir: Output directory path
-        
+        temperature: LLM temperature (0.0-1.0). Lower = more focused.
+        max_tokens: Max response length in tokens.
+        top_p: Nucleus sampling threshold (0.0-1.0).
+        model: Mistral model name.
+
     Returns:
         Dictionary with questions and statements, or None if failed
     """
@@ -42,27 +46,32 @@ def process_advanced(chunks, output_dir):
         print("\n[1/3] Analyzing policy statements...")
         analyzer = PolicyAnalyzer()
         statements = analyzer.analyze_document(chunks)
-        
+
         print(f"   Found {len(statements)} policy statements")
-        
+
         # Get requirements
         requirements = analyzer.get_requirements(statements, min_confidence=0.5)
         print(f"   Identified {len(requirements)} requirement statements")
-        
+
         # Display categories
         categorized = analyzer.get_statements_by_category(requirements)
         print(f"\n   Requirement statements by category:")
         for category, stmts in categorized.items():
             print(f"     - {category.value}: {len(stmts)} statements")
-        
+
         # Step 2: Generate compliance questions
         print(f"\n[2/3] Generating compliance questions...")
-        generator = QuestionGenerator()
+        generator = QuestionGenerator(
+            temperature=temperature,
+            max_tokens=max_tokens,
+            top_p=top_p,
+            model=model
+        )
         
         questions = generator.generate_questions_from_statements(
             requirements,
             questions_per_statement=3,
-            batch_size=5
+            batch_size=10
         )
         
         if not questions:
@@ -129,12 +138,27 @@ def process_advanced(chunks, output_dir):
 def main():
     # Parse command line arguments
     advanced_mode = '--advanced' in sys.argv or '--ai' in sys.argv or '-a' in sys.argv
-    
+
+    # Parse temperature (default 0.3 for compliance)
+    temperature = 0.3
+    max_tokens = 2048
+    top_p = 1.0
+    model = "mistral-small-latest"
+    for arg in sys.argv[1:]:
+        if arg.startswith('--temperature='):
+            temperature = float(arg.split('=')[1])
+        elif arg.startswith('--max-tokens='):
+            max_tokens = int(arg.split('=')[1])
+        elif arg.startswith('--top-p='):
+            top_p = float(arg.split('=')[1])
+        elif arg.startswith('--model='):
+            model = arg.split('=')[1]
+
     if advanced_mode and not ADVANCED_AVAILABLE:
         print("ERROR: Advanced mode requires additional packages.")
         return
-    
-    # Get PDF path
+
+    # Get PDF path (skip flags and --key=value args)
     pdf_args = [arg for arg in sys.argv[1:] if not arg.startswith('-')]
     if pdf_args:
         pdf_path = pdf_args[0]
@@ -143,8 +167,12 @@ def main():
     
     if not Path(pdf_path).exists():
         print(f"ERROR: File not found: {pdf_path}")
-        print("\nUsage: python text_extraction.py [pdf_path] [--advanced]")
-        print("  --advanced : Enable policy analysis and compliance question generation")
+        print("\nUsage: python text_extraction.py [pdf_path] [--advanced] [options]")
+        print("  --advanced            : Enable policy analysis and compliance question generation")
+        print("  --temperature=X       : Set randomness (0.0=focused, 1.0=creative, default 0.3)")
+        print("  --max-tokens=N        : Max response length in tokens (default 2048)")
+        print("  --top-p=X             : Nucleus sampling threshold (0.0-1.0, default 1.0)")
+        print("  --model=NAME          : Mistral model (mistral-small-latest, mistral-medium-latest, mistral-large-latest)")
         return
     
     # Header
@@ -155,6 +183,9 @@ def main():
         print("DOCUMENT PROCESSING PIPELINE")
     print("="*80)
     print(f"Mode: {'Advanced + Compliance Analysis' if advanced_mode else 'Standard Processing'}")
+    if advanced_mode:
+        print(f"Temperature: {temperature} | Max Tokens: {max_tokens} | Top P: {top_p}")
+        print(f"Model: {model}")
     print(f"File: {pdf_path}")
     print("="*80)
     
@@ -192,7 +223,7 @@ def main():
             print("POLICY ANALYSIS")
             print("="*80)
             
-            advanced_results = process_advanced(results['chunks'], output_dir)
+            advanced_results = process_advanced(results['chunks'], output_dir, temperature, max_tokens, top_p, model)
             
             if advanced_results:
                 print("\nAnalysis complete!")

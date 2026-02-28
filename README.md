@@ -1,37 +1,76 @@
 # Document Processing Pipeline
 
-A fast PDF processing pipeline with **semantic search** and **AI-powered policy compliance analysis**.
+A PDF processing pipeline for semantic search and AI-powered policy compliance analysis. Built with LangChain and Mistral for intelligent question generation from policy documents.
 
 ## Features
 
-| Feature | Standard Mode | AI Mode |
+| Feature | Standard Mode | Advanced Mode |
 |---|---|---|
-| PDF parsing & chunking | ✅ | ✅ |
-| Semantic search (ChromaDB) | ✅ | ✅ |
-| Excel searchable index | ✅ | ✅ |
-| Knowledge graph | ✅ | ✅ |
-| Policy statement extraction | ❌ | ✅ |
-| Compliance question generation | ❌ | ✅ |
-| Requirement extraction | ❌ | ✅ |
+| PDF parsing and chunking | Yes | Yes |
+| Semantic search (ChromaDB) | Yes | Yes |
+| Excel searchable index | Yes | Yes |
+| Knowledge graph generation | Yes | Yes |
+| Policy statement extraction | -- | Yes |
+| Compliance question generation | -- | Yes |
+| Requirement extraction | -- | Yes |
+
+## Prerequisites
+
+- Python 3.9 or higher
+- Mistral API key (required for advanced mode only)
 
 ## Installation
 
 ```bash
-# Standard mode
-pip install pymupdf sentence-transformers chromadb networkx pydantic numpy tqdm pandas openpyxl
+pip install -e .
+```
 
-# AI mode (adds Mistral integration)
-pip install mistralai python-dotenv
+For environment variable support:
+
+```bash
+pip install python-dotenv
 ```
 
 ## Usage
+
+### Command Line
 
 ```bash
 # Standard processing
 python text_extraction.py [path/to/document.pdf]
 
-# AI-powered policy analysis
-python text_extraction.py [path/to/document.pdf] --ai
+# Advanced mode with compliance analysis
+python text_extraction.py [path/to/document.pdf] --advanced
+```
+
+If no PDF path is provided, the pipeline defaults to `samples/Information Security & Management Policy v3.pdf`.
+
+### Advanced Mode Options
+
+The following parameters control LLM behavior during question generation:
+
+```bash
+python text_extraction.py document.pdf --advanced [options]
+```
+
+| Option | Default | Description |
+|---|---|---|
+| `--temperature=X` | 0.3 | Controls output randomness. 0.0 = deterministic, 1.0 = creative. Lower values produce more focused, consistent compliance questions. |
+| `--max-tokens=N` | 2048 | Maximum response length in tokens. Increase if responses are getting truncated. |
+| `--top-p=X` | 1.0 | Nucleus sampling threshold. Lower values restrict output to higher-probability tokens. Avoid changing both temperature and top_p simultaneously. |
+| `--model=NAME` | mistral-small-latest | Mistral model to use. Options: `mistral-small-latest`, `mistral-medium-latest`, `mistral-large-latest`. |
+
+Examples:
+
+```bash
+# Use a larger model for higher quality questions
+python text_extraction.py document.pdf --advanced --model=mistral-large-latest
+
+# More focused output with lower temperature
+python text_extraction.py document.pdf --advanced --temperature=0.1
+
+# Increase token limit for longer responses
+python text_extraction.py document.pdf --advanced --max-tokens=4096
 ```
 
 ### Python API
@@ -40,7 +79,7 @@ python text_extraction.py [path/to/document.pdf] --ai
 from src.pipeline import DocumentPipeline
 
 pipeline = DocumentPipeline(
-    chunk_by="section",          # or "paragraph"
+    chunk_by="section",
     embedding_model="all-MiniLM-L6-v2",
     output_dir="./output",
     max_chunk_chars=3000,
@@ -53,7 +92,7 @@ results = pipeline.process_document("document.pdf")
 search_results = pipeline.search("data security policy", n_results=5)
 for result in search_results['results']:
     print(f"[{result['rank']}] Score: {result['score']}")
-    print(f"Section: {result.get('section_title')}, Pages: {result.get('pages')}")
+    print(f"Section: {result.get('section')}, Pages: {result.get('pages')}")
     print(result['text'][:200])
 
 # Keyword search via Excel
@@ -68,157 +107,100 @@ output/
 ├── chunks/[document]/
 │   ├── chunk_001.txt                  # Individual chunk files
 │   └── index.json
-├── [document]_searchable_index.xlsx   # Excel search interface
-├── [document]_parsed.json             # Hierarchical structure
+├── [document]_searchable_index.xlsx   # Excel searchable index
+├── [document]_parsed.json             # Parsed document structure
 ├── [document]_graph.json              # Knowledge graph
 │
-│   # AI mode only:
-├── ai_compliance_questions.json
-├── ai_compliance_questions.xlsx       # 4 sheets: All / By Category / By Type / Requirements
+│   # Advanced mode only:
+├── compliance_questions.json
+├── compliance_questions.xlsx          # Sheets: Questions / By Category / By Type / Requirements
 └── policy_statements.json
 ```
 
 ## Configuration
 
-**Chunking strategies:**
+### Chunking Strategies
+
 ```python
+# Section-based (default) — groups content by document sections
 DocumentPipeline(chunk_by="section", max_chunk_chars=3000, min_chunk_chars=500)
+
+# Paragraph-based — finer granularity, useful for large documents
 DocumentPipeline(chunk_by="paragraph", max_chunk_chars=2000)
 ```
 
-**Embedding models:**
+### Embedding Models
+
 ```python
-DocumentPipeline(embedding_model="all-MiniLM-L6-v2")   # Default — fast, 384-dim
-DocumentPipeline(embedding_model="all-mpnet-base-v2")   # Better quality, 768-dim
+# Default — fast, 384 dimensions
+DocumentPipeline(embedding_model="all-MiniLM-L6-v2")
+
+# Higher quality, 768 dimensions
+DocumentPipeline(embedding_model="all-mpnet-base-v2")
 ```
 
-## Performance
+## Project Structure
 
-| Document Size | Standard | AI Mode |
-|---|---|---|
-| 10 pages | ~5s | +10–15s |
-| 25 pages | ~10s | +20–30s |
-| 50 pages | ~15s | +45–60s |
-| 100 pages | ~30s | +90–120s |
+```
+├── text_extraction.py          # CLI entry point
+├── pyproject.toml              # Project configuration and dependencies
+├── src/
+│   ├── pipeline.py             # Main pipeline orchestrator
+│   ├── parser.py               # PDF parsing (PyMuPDF)
+│   ├── chunker.py              # Document chunking with boundary detection
+│   ├── embedder.py             # Embedding generation and ChromaDB indexing
+│   ├── knowledge_graph.py      # Document relationship graph (NetworkX)
+│   ├── chunk_file_writer.py    # Individual chunk file output
+│   ├── excel_generator.py      # Excel index and compliance report generation
+│   ├── schemas.py              # Pydantic data models
+│   ├── policy_analyzer.py      # Policy statement extraction and categorization
+│   └── question_generator.py   # LangChain + Mistral compliance question generation
+├── samples/                    # Input PDF documents
+└── output/                     # Generated outputs (gitignored)
+```
 
-> First run is slower due to embedding model download (~90MB). AI mode speed depends on Mistral API rate limits.
+## How It Works
+
+### Standard Pipeline (7 steps)
+
+1. **Parse PDF** — Extracts text with font metadata, detects headings and section boundaries
+2. **Chunk** — Splits content by section or paragraph, respecting sentence boundaries
+3. **Excel Index** — Generates a searchable `.xlsx` with content, page numbers, and keywords
+4. **Chunk Files** — Writes individual `.txt` / `.json` / `.md` files per chunk
+5. **Chunk Index** — Creates a JSON index of all chunks with metadata
+6. **Embed and Index** — Generates sentence-transformer embeddings, stores in ChromaDB
+7. **Knowledge Graph** — Builds a directed graph linking documents, sections, and chunks
+
+### Advanced Pipeline (adds 3 steps)
+
+1. **Policy Statement Extraction** — Identifies and categorizes policy statements across 14 categories (Access Control, Data Security, Compliance, Privacy, etc.)
+2. **Compliance Question Generation** — Uses LangChain with Mistral to generate audit, implementation, verification, and requirement questions from extracted policy statements
+3. **Report Export** — Outputs questions and statements to JSON and a multi-sheet Excel report
+
+Non-content pages (cover pages, table of contents) are automatically detected and excluded from analysis.
+
+## Environment Setup
+
+Create a `.env` file in the project root for advanced mode:
+
+```
+MISTRAL_API_KEY=your_api_key_here
+```
+
+Get an API key from [Mistral Console](https://console.mistral.ai/).
 
 ## Troubleshooting
 
 | Problem | Solution |
 |---|---|
-| Import errors | Re-run the `pip install` command for your mode |
-| API key error | Create `.env` with `MISTRAL_API_KEY=your_key` ([get key](https://console.mistral.ai/)) |
-| Quota exceeded | Wait or upgrade Mistral tier |
-| No PDFs found | Place PDFs in `./samples/` |
-| Excel file locked | Close the file before re-running |
+| Import errors | Run `pip install -e .` to install all dependencies |
+| API key error | Create `.env` with `MISTRAL_API_KEY=your_key` |
+| Quota exceeded | Wait for rate limit reset or upgrade Mistral plan |
+| No PDF found | Provide a path or place PDFs in `./samples/` |
+| Excel file locked | Close the file in Excel before re-running |
 | Memory issues | Use `chunk_by="paragraph"` for large documents |
+| Truncated responses | Increase `--max-tokens` value |
 
-## Demo
+## License
 
-**Standard mode:**
-
-```
-$ python text_extraction.py
-
-================================================================================
-DOCUMENT PROCESSING PIPELINE
-================================================================================
-Mode: Standard Processing
-File: samples/Information Security & Management Policy v3.pdf
-================================================================================
-
-Step 1: Parsing PDF...
-  Pages: 23 | Sections: 6
-
-Step 2: Intelligent chunking (max 3000 chars per chunk)...
-  Created 18 chunks from 6 sections
-  - Average chunk size: 2401 characters
-  - Largest chunk:     2994 characters
-  - Smallest chunk:      91 characters
-
-Step 3: Generating Excel searchable index...
-  output\Information Security & Management Policy v3_searchable_index.xlsx
-
-Step 4: Writing chunks to individual txt files...
-  18 files in output\chunks\Information Security & Management Policy v3\
-
-Step 5: Creating chunk index...
-  output\chunks\Information Security & Management Policy v3\index.json
-
-Step 6: Generating embeddings and indexing...
-  Batches: 100%|████████████| 1/1 [00:00<00:00,  1.79it/s]
-  Indexed 18 chunks
-
-Step 7: Building knowledge graph...
-  Saved JSON outputs to output\
-
-PROCESSING STATISTICS:
-  Total Pages:    23
-  Total Sections:  6
-  Total Chunks:   18
-  Avg Chunk Size: 2401 chars
-  Files Created:  19
-```
-
-**AI mode** (`--ai` flag) — adds policy analysis and compliance question generation:
-
-```
-$ python text_extraction.py --ai
-
-================================================================================
-AI-POWERED POLICY DOCUMENT PROCESSING
-================================================================================
-Mode: AI + Compliance Analysis
-File: samples/Information Security & Management Policy v3.pdf
-================================================================================
-
-... (same 7 processing steps as above) ...
-
-================================================================================
-AI POLICY ANALYSIS
-================================================================================
-
-[1/3] Analyzing policy statements...
-  Found 112 policy statements
-  Identified 45 requirement statements
-
-  Requirements by category:
-    General:            12
-    Data Security:      11
-    Access Control:      6
-    Compliance:          6
-    Privacy:             3
-    Vendor Management:   3
-    Incident Response:   1
-    Risk Management:     1
-    Training & Awareness:1
-    Audit & Monitoring:  1
-
-[2/3] Generating AI compliance questions...
-  Model: mistral-small-latest | Statements: 45 | Batch size: 5
-
-  Processing batch 1... 15 questions
-  Processing batch 2... 15 questions
-  Processing batch 3... 15 questions
-  ...
-  Total questions generated: 138
-
-[3/3] Exporting AI results...
-  output\ai_compliance_questions.json
-  output\policy_statements.json
-  output\ai_compliance_questions.xlsx
-
-  Sample questions (first 3):
-  1. What specific procedures and controls have been implemented to protect
-     the confidentiality and integrity of information?
-     Category: General | Type: implementation
-
-  2. How often are these procedures and controls audited to ensure
-     their effectiveness?
-     Category: General | Type: audit
-
-  3. What mechanisms are in place to verify that information is only
-     accessible to authorized persons?
-     Category: General | Type: verification
-```
+MIT

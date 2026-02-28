@@ -31,6 +31,7 @@ def export_compliance_questions_to_excel(questions, statements, output_file):
     with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
         # Sheet 1: All Questions
         questions_data = [{
+            'Sr No.': idx + 1,
             'Question': clean_text_for_excel(q.question),
             'Category': q.category,
             'Type': q.question_type,
@@ -39,7 +40,7 @@ def export_compliance_questions_to_excel(questions, statements, output_file):
             'Section': clean_text_for_excel(q.section),
             'Page': q.page,
             'Source': clean_text_for_excel(q.source_statement[:150] + '...' if len(q.source_statement) > 150 else q.source_statement)
-        } for q in questions]
+        } for idx, q in enumerate(questions)]
         
         df_questions = pd.DataFrame(questions_data)
         df_questions.to_excel(writer, sheet_name='Questions', index=False)
