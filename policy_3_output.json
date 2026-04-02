@@ -1,0 +1,712 @@
+[
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "PREAMBLE-0",
+    "level": "clause",
+    "title": "COMPANY POLICIES",
+    "text": "COMPANY POLICIES\nMANUAL\nDocument Number: HSE-MAN-001\nRevision Description Issue Date Review Authorised",
+    "keywords": [
+      "company",
+      "policies",
+      "manual",
+      "document",
+      "number"
+    ],
+    "context": "COMPANY POLICIES\nMANUAL\nDocument Number: HSE-MAN-001\nRevision Description Issue Date Review Authorised"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "1",
+    "level": "clause",
+    "title": "Re-written and re-formatted. 03/10/2017 David Beros",
+    "text": "2 Reviewed 03/10/2017 Rob Oliver\n3 Reviewed 03/10/2017 Glen Payne\n4 Reviewed 09/10/2017 Rob Oliver Glen Payne\n5 Reviewed 22/08/2018\nStuart Bow /\nDavid Beros Glen Payne\nHSE-MAN-001-Rev 05 Date Issued 28/08/2018",
+    "keywords": [
+      "reviewed",
+      "glen",
+      "payne",
+      "rob",
+      "oliver"
+    ],
+    "context": "2 Reviewed 03/10/2017 Rob Oliver\n3 Reviewed 03/10/2017 Glen Payne\n4 Reviewed 09/10/2017 Rob Oliver Glen Payne\n5 Reviewed 22/08/2018\nStuart Bow /\nDavid Beros Glen Payne\nHSE-MAN-001-Rev 05 Date Issued 28/08/2018"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689",
+    "keywords": [
+      "geraldton",
+      "australia",
+      "abn"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "1",
+    "level": "clause",
+    "title": "Introduction",
+    "text": "DIAB Engineering is committed to providing a safe and healthy work environment for\nall employees, contractors, visitors and 3rd party personnel.\nThe Chief Executive Officer provides the necessary leadership and direction of the\nCompany including the values and principles by which it operates.\nThe Policy Statements contained within this manual are available to the general\npublic, demonstrating our commitment to the occupational health and safety of our\nemployees; the protection of our environment and the quality objectives and principles\nby which we deliver our services to our customers.\nWe promote a strong culture of health and safety in our day to day operations and\ntake a positive initiative in conserving our resources and protecting the environment.\nThe Company Policies are reviewed periodically by our Management Team to ensure\nits effectiveness and consistency with the evolving changes of legislation within our\nscope of work and consistency in the quality of services we deliver to our client.",
+    "keywords": [
+      "environment",
+      "work",
+      "employees",
+      "company",
+      "principles"
+    ],
+    "context": "DIAB Engineering is committed to providing a safe and healthy work environment for\nall employees, contractors, visitors and 3rd party personnel. The Chief Executive Officer provides the necessary leadership and direction of the\nCompany including the values and principles by which it operates."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "2",
+    "level": "clause",
+    "title": "Purpose",
+    "text": "The Policy Statements issued by the Group Risk Manager communicates and\nsupports the Company’s commitment in providing services to internationally\nrecognised standards in compliance with applicable industry statutory rules and\nregulations.\nThe Policy Statements outline DIAB Engineering’s values and expectations in\nupholding these standards and the company’s commitment to continually improve the\neffectiveness of our Quality, Health, Safety and Environmental systems and\nprocesses.",
+    "keywords": [
+      "policy",
+      "statements",
+      "company",
+      "commitment",
+      "standards"
+    ],
+    "context": "The Policy Statements issued by the Group Risk Manager communicates and\nsupports the Company’s commitment in providing services to internationally\nrecognised standards in compliance with applicable industry statutory rules and\nregulations. The Policy Statements outline DIAB Engineering’s values and expectations in\nupholding these standards and the company’s commitment to continually improve the\neffectiveness of our Quality, Health, Safety and Environmental systems and\nprocesses."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "3.1",
+    "level": "sub-clause",
+    "title": "Chief Executive Officer",
+    "text": "The Chief Executive Officer shall establish policies on key aspects of the Company’s\nprinciples, values, objectives and standards by issuing policy statements.\nConduct a periodic review of each policy (no greater than 2 years) to ensure that it is\nappropriate and reflects the true nature of the business.\nCommunicate Company Policies to all employees and make available to the general\npublic.\nHSE-MAN-001-Rev 05 Date Issued 28/08/2018",
+    "parent_clause": "2",
+    "keywords": [
+      "policies",
+      "company",
+      "policy",
+      "chief",
+      "executive"
+    ],
+    "context": "The Chief Executive Officer shall establish policies on key aspects of the Company’s\nprinciples, values, objectives and standards by issuing policy statements. Conduct a periodic review of each policy (no greater than 2 years) to ensure that it is\nappropriate and reflects the true nature of the business."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689",
+    "keywords": [
+      "geraldton",
+      "australia",
+      "abn"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "3.2",
+    "level": "sub-clause",
+    "title": "Group Risk Manager",
+    "text": "Facilitate the distribution of Company Policies to all personnel both internal and\nexternal customers. Promote and uphold Company Policies.",
+    "parent_clause": "20",
+    "keywords": [
+      "company",
+      "policies",
+      "facilitate",
+      "distribution",
+      "personnel"
+    ],
+    "context": "Facilitate the distribution of Company Policies to all personnel both internal and\nexternal customers. Promote and uphold Company Policies."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "4",
+    "level": "clause",
+    "title": "Company Policies",
+    "text": "Company Polices are signed by the Chief Executive Officer.\nEach Policy is controlled by the signature date.\nThese Policies are reviewed periodically but no longer than two years at scheduled\nManagement Review Meetings to ensure that they remain appropriate to the\nbusiness.\nSigned copies of these Policies are displayed at the DIAB Engineering office / facilities\nreception area, posted is workshop/crib rooms and accessible to employees through\nthe Skytrust Documents Library.\nPolices are re-enforced during Company Induction presentations and In-House\nTraining Programs\nThe Company Policies shown in Appendix ‘A’ have been issued by the Group Risk\nManager.",
+    "keywords": [
+      "company",
+      "policies",
+      "polices",
+      "signed",
+      "chief"
+    ],
+    "context": "Company Polices are signed by the Chief Executive Officer. Each Policy is controlled by the signature date."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "5",
+    "level": "clause",
+    "title": "References",
+    "text": "Location – DIAB Engineering Reference Library\nDocument Title\nInternational Standards\nISO 9001:2015\nOHSAS 18001:2007\nISO 14001:2015\nHSE-MAN-001-Rev 05 Date Issued 28/08/2018",
+    "keywords": [
+      "iso",
+      "location",
+      "diab",
+      "engineering",
+      "reference"
+    ],
+    "context": "Location – DIAB Engineering Reference Library\nDocument Title\nInternational Standards\nISO 9001:2015\nOHSAS 18001:2007\nISO 14001:2015\nHSE-MAN-001-Rev 05 Date Issued 28/08/2018"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689",
+    "keywords": [
+      "geraldton",
+      "australia",
+      "abn"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "6",
+    "level": "clause",
+    "title": "Appendices",
+    "text": "Appendix ‘A’ – Company Polices\nThe following Company Polices are attached to this manual in Appendix A and available through\nSkytrust Documents Library.\nAppendix # Policy Number Title",
+    "keywords": [
+      "appendix",
+      "company",
+      "polices",
+      "following",
+      "attached"
+    ],
+    "context": "Appendix ‘A’ – Company Polices\nThe following Company Polices are attached to this manual in Appendix A and available through\nSkytrust Documents Library. Appendix # Policy Number Title"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "10",
+    "level": "clause",
+    "title": "HUR-POL-001-004 Electronic Communications & Social Media",
+    "text": "Policy",
+    "keywords": [
+      "policy"
+    ],
+    "context": "Policy"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "19",
+    "level": "clause",
+    "title": "MGT-POL-001-009 Anti-Bribery and Corruption Policy",
+    "text": "HSE-POL-001-001 Rev 05 Date Issued 28/08/2018",
+    "keywords": [
+      "rev",
+      "date",
+      "issued"
+    ],
+    "context": "HSE-POL-001-001 Rev 05 Date Issued 28/08/2018"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nRISK MANAGEMENT POLICY\nDIAB Engineering is focused on providing a safe, disciplined and reliable workplace and we\nare committed to effective risk management. We will include risk identification and\nmanagement into all our activities, making it a core part of our culture.\nOur objective is to manage risks and hazards in the workplace and to identify and remove\npotential and recognised risks to achieve zero harm in the workplace.\nWe will achieve this through:\n• Implementing an integrated risk management approach which uses risk assessment\nas an integral part of decision making and planning.\n• Ensuring that appropriate risk controls are developed, implemented and maintained.\n• Complying with all applicable regulation and legislation, internal policies and\ncontractual obligations.\n• Ensuring that procedures are in place to identify and report on hazards, including\nidentifying possible foreseeable situations where employees may be exposed to injury,\nillness or disease.\n• Ensuring that procedures are in place to evaluate and assess risk.\n• Providing relevant and timely training to all employees.\n• Monitor and review the performance of our risk management system.\n• Maintaining appropriate insurance cover.\nThis policy applies to all DIAB Engineering employees and subcontractors. The policy and\nassociated group risk management processes will be applied across all facets of the company.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHSE-POL-001-002 Rev06 Date Issued 28/08/2018",
+    "keywords": [
+      "risk",
+      "management",
+      "policy",
+      "diab",
+      "engineering"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nRISK MANAGEMENT POLICY\nDIAB Engineering is focused on providing a safe, disciplined and reliable workplace and we\nare committed to effective risk management. We will include risk identification and\nmanagement into all our activities, making it a core part of our culture."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nINDIGENOUS POLICY\nDIAB Engineering respects the heritage, traditions, culture and rights of Indigenous people.\nWe are committed to fostering our relationship with the Traditional Owners of the land on\nwhich we work.\nDIAB Engineering recognises the relationship Indigenous people have with the land and sea\nand respect that worksites may contain sacred sites that require protection. We will ensure\nthat our employees are aware of these sacred sites and that they understand their\nresponsibilities to protect them.\nDIAB Engineering’s objective is to be a company of choice for Indigenous people.\nWe will achieve this by:\n• Promoting and providing employment opportunities, training and integration of\nIndigenous people within all aspects of our business.\n• Improving our Indigenous recruitment process and ensuring that selection processes\nare culturally sensitive.\n• Ensuring that all employees are trained in the understanding of Traditional Ownership\nand cultural heritage.\nDIAB Engineering will follow any guidance given by the Indigenous Community through\nconsultation and host companies who have undertaken Cultural Heritage Audits. This includes\nspecific areas of training in our clients’ Safety Environment Management Plans.\nThis policy is reinforced through training and consultation with Traditional Owners.\nDIAB’S commitment to continuous improvement ensures that the above policy is reviewed on\na regular basis.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHSE-POL-001-003 Rev 05 Date Issued 28/08/2018",
+    "keywords": [
+      "indigenous",
+      "diab",
+      "engineering",
+      "people",
+      "policy"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nINDIGENOUS POLICY\nDIAB Engineering respects the heritage, traditions, culture and rights of Indigenous people. We are committed to fostering our relationship with the Traditional Owners of the land on\nwhich we work."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nFATIGUE MANAGEMENT POLICY\nDiab Engineering is committed to providing a safe place of work for all employees,\nsubcontractors and visitors to site and achieving zero harm to personnel. We understand\nfatigue is a considerable risk and as such are committed to achieving zero harm to personnel\ndue to the effects of fatigue.\nDiab Engineering will actively prevent and manage risk associated with fatigue in the\nworkplace through the following strategies:\n• Ensuring a system is in place to recognise fatigue related risk associated with the\nbusiness in general, and with specific projects.\n• Provide a system to implement controls to manage fatigue risks in the workplace.\n• Ensuring systems are in place to manage fatigue-related risk associated with working\nconditions. In particular shift duration, roster systems, accommodation and travel\narrangements.\n• Compliance with all relevant legislative and client specific requirements.\n• Providing appropriate information and communicate openly with employees and clients\non fatigue related issues.\n• Ensuring employees understand their right and obligation to cease work if they believe\nfatigue is compromising the safety of themselves or others.\n• Ensuring all employees, sub-contractors and visitors are informed of, and understand\ntheir obligations, under this policy.\nDIAB Engineering is responsible for establishing and maintaining a fatigue management\nframework to ensure that personnel are fit for duty.\nAll employees and subcontractors are responsible for ensuring they are fit for duty by\ncomplying with this Policy.\nTo successfully control the risks associated with fatigue in the workplace it is up to each\nindividual to recognise the symptoms of fatigue, obtain adequate sleep and ensure they and\nothers affected by fatigue seek assistance.\nGlen Payne\nChief Executive Officer\nDiab Engineering Pty Ltd\nHSE-POL-001-004 Rev 04 Date Issued 28/08/2018",
+    "keywords": [
+      "fatigue",
+      "employees",
+      "ensuring",
+      "diab",
+      "engineering"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nFATIGUE MANAGEMENT POLICY\nDiab Engineering is committed to providing a safe place of work for all employees,\nsubcontractors and visitors to site and achieving zero harm to personnel. We understand\nfatigue is a considerable risk and as such are committed to achieving zero harm to personnel\ndue to the effects of fatigue."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nDRUGS, ALCOHOL AND SMOKING POLICY\nDiab Engineering is committed to achieving a drug and alcohol free workplace, as well as\nensuring personnel are not impacted by the cigarette smoke of others.\nDiab Engineering is dedicated to:\n• A zero tolerance for drugs and alcohol in the workplace, and a zero tolerance of\ninconsiderate cigarette smoking behaviour.\n• Ensuring the workplace is free from personnel under the influence of drugs and\nalcohol.\n• Providing systems to ensure testing is conducted and employees are able to report\npersonnel suspected of being under the influence of drugs and alcohol.\n• Providing a system of disciplinary action and employee assistance following positive\ntesting.\n• Providing a system to ensure employees choosing to smoke cigarettes do not impact\nother employees.\n• Compliance with all relevant legislative and client specific requirements.\n• Providing appropriate information, instruction and training to employees to ensure they\nunderstand the effects of alcohol and drugs, and the impact of passive smoking.\n• Ensuring all employees, sub-contractors and visitors are informed of, and understand\ntheir obligations, under this policy.\nGlen Payne\nChief Executive Officer\nDiab Engineering Pty Ltd\nHSE-POL-001-005 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "alcohol",
+      "drugs",
+      "employees",
+      "providing",
+      "smoking"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nDRUGS, ALCOHOL AND SMOKING POLICY\nDiab Engineering is committed to achieving a drug and alcohol free workplace, as well as\nensuring personnel are not impacted by the cigarette smoke of others. Diab Engineering is dedicated to:\n• A zero tolerance for drugs and alcohol in the workplace, and a zero tolerance of\ninconsiderate cigarette smoking behaviour."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nFITNESS FOR WORK POLICY\nDIAB Engineering cares about the health and safety of all employees, contractors and visitors\nand is committed to creating and maintaining a safe work environment.\nTo meet our duty of care obligations we will ensure a healthy and safe working environment\nthrough effective risk management and implementing systems and procedures to assist\nemployees perform their tasks safely and efficiently.\nWe will achieve this through:\n• Promoting physical, mental and emotional health to enable employees to safely\nundertake and sustain work activities.\n• Providing training and resources and ongoing communication to improve fit for work\nawareness.\n• Ensuring the workplace is free from personnel under the influence of drugs and\nalcohol.\n• Taking all practicable steps in rostering and placement of employees to ensure the\nhours of work, shifts and rosters and workplace conditions do not create unacceptable\nrisk.\n• Ensuring employees are fit for work and providing assistance and providing support to\nhelp overcome problems likely to impair fitness for work.\n• Provision of effective, fair and constructive procedures to deal with people who are\nunfit for work.\n• Ensuring all employees, sub-contractors and visitors are informed of, and understand\ntheir obligations, under this policy.\n• Monitoring and reviewing the effectiveness of the fitness for work policy and procedure\nto bring about continual improvement.\nDIAB Engineering manager’s will ensure that this policy is communicated throughout the\nbusiness and that all policies and procedures are reviewed regularly.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHSE-POL-001-006 Rev 03 Date Issued 28/08/2018",
+    "keywords": [
+      "work",
+      "employees",
+      "policy",
+      "fitness",
+      "diab"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nFITNESS FOR WORK POLICY\nDIAB Engineering cares about the health and safety of all employees, contractors and visitors\nand is committed to creating and maintaining a safe work environment. To meet our duty of care obligations we will ensure a healthy and safe working environment\nthrough effective risk management and implementing systems and procedures to assist\nemployees perform their tasks safely and efficiently."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nEQUAL OPPORTUNITY POLICY\nDIAB Engineering is committed to creating and maintaining equal opportunity at our\nworkplaces.\nWe respect and value the diversity of the work force and recognize our moral and legal\nresponsibilities to provide an equal opportunity workplace.\nWe provide an equal employment opportunity policy for all employees without discrimination,\nagainst race, age, gender, religion, sexual preference, marital status, family responsibilities,\npregnancy, disability or impairment, political opinion, national extraction or social origin.\nWe will do this by:\n• Ensuring that all recruitment, selection and promotion decisions are based on the best\nqualified and experienced candidate who can perform the genuine occupational\nrequirements of the position.\n• Providing equal opportunity in employment to all suitably able people without\ndiscrimination or harassment based on personal characteristics.\n• Ensuring employees are treated fairly and equitably in an environment free of bullying,\nharassment and sexual harassment.\n• Fostering an environment where all employees feel safe and valued, regardless of their\nbackground.\n• Recognising and valuing cultural diversity as an asset that enriches the life of the\nworking community.\n• Educating all employees about issues of racism, equity and equal opportunity.\nAll DIAB Engineering employees are responsible for ensuring that equal opportunity principles\nare respected.\nDIAB Engineering’s managers will ensure that this policy is communicated throughout the\nbusiness and that all policies and procedures are reviewed regularly\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHSE-POL-001-007 Rev 03 Date Issued 28/08/2018",
+    "keywords": [
+      "equal",
+      "opportunity",
+      "employees",
+      "diab",
+      "engineering"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nEQUAL OPPORTUNITY POLICY\nDIAB Engineering is committed to creating and maintaining equal opportunity at our\nworkplaces. We respect and value the diversity of the work force and recognize our moral and legal\nresponsibilities to provide an equal opportunity workplace."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nDIMENSION AND LOADING MANAGEMENT POLICY\nDIAB Engineering is committed to providing a safe and reliable transport service in\nalignment with the requirements of our WA Heavy Vehicle Accreditation responsibilities.\nDIAB Engineering understand, the need to ensure that all of our transport vehicles entering\nthe public road system are compliant with regulatory requirements in regard to load, mass\nand dimensions.\nTo ensure that this operation meets this policy in all respects, DIAB Engineering will put\nsystems and controls in place to ensure that all loads and vehicle configurations are\nchecked before they enter the public road system. DIAB Engineering will comply with the\nfive Dimension and Loading management standards: responsibilities, vehicle loading,\nrecords and documentation, internal review and training and education.\nTo achieve a safe and reliable transport service, DIAB Engineering will work in compliance\nwith the requirements of our detailed procedures as outlined in the HSE-PLA-001-006 - WA\nHeavy Vehicle Accreditation System.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHSE-POL-001-008 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "diab",
+      "engineering",
+      "vehicle",
+      "loading",
+      "transport"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nDIMENSION AND LOADING MANAGEMENT POLICY\nDIAB Engineering is committed to providing a safe and reliable transport service in\nalignment with the requirements of our WA Heavy Vehicle Accreditation responsibilities. DIAB Engineering understand, the need to ensure that all of our transport vehicles entering\nthe public road system are compliant with regulatory requirements in regard to load, mass\nand dimensions."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nHVA MAINTENANCE MANAGEMENT POLICY\nDIAB Engineering is committed to providing a safe and reliable transport service in alignment\nwith our commitment to achieving zero harm to personnel and the environment.\nDIAB Engineering understands, the need to maintain safe, reliable and roadworthy vehicles\nthrough a suitably planned and executed maintenance program in accordance with Western\nAustralian Heavy Vehicle Accreditation requirements.\nThe DIAB Engineering Maintenance Management Program is structured on and adheres to\nthe requirements of Western Australian Heavy Vehicle Accreditation. DIAB Engineering will\ncomply with the eight maintenance management standards: daily vehicle checks, scheduled\nvehicle servicing, responsibilities, records and documentation, internal review, training and\neducation, effective fault reporting, identifying priorities and repair of faults.\nWhen operating under HVA permit, DIAB Engineering will only use vehicles that are covered\nby a Maintenance Management System meeting Western Australian Heavy Vehicle\nAccreditation requirements.\nTo achieve a safe and reliable transport service, DIAB Engineering will work in compliance\nwith the requirements of our detailed procedures as outlined in HSE-PLA-001-006 - WA Heavy\nVehicle Accreditation System.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHUR-POL-001-003 Rev 06 Date Issued 28/08/2018",
+    "keywords": [
+      "diab",
+      "engineering",
+      "vehicle",
+      "maintenance",
+      "management"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nHVA MAINTENANCE MANAGEMENT POLICY\nDIAB Engineering is committed to providing a safe and reliable transport service in alignment\nwith our commitment to achieving zero harm to personnel and the environment. DIAB Engineering understands, the need to maintain safe, reliable and roadworthy vehicles\nthrough a suitably planned and executed maintenance program in accordance with Western\nAustralian Heavy Vehicle Accreditation requirements."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nMISSED FLIGHTS POLICY\nIt is DIAB Engineering’s intent to allow for adequate airfare travel for employees who are\nrequired to travel long distance for DIAB Engineering business.\nWhere an employee fails to board their scheduled flight, without appropriate notice, it results\nin significant disruption at the work site and substantial expense to DIAB Engineering,\nincluding loss of the pre-paid fare and the administration costs of re- scheduling the flight and\nwork roster.\nThe purpose of this Policy is to define appropriate procedures, and disciplinary action, for\nemployees missing their scheduled flights.\nIt is the responsibility of all employees to:\n• Check in at the airport at least 60 minutes prior to the scheduled flight departure.\n• Provide forty eight (48) hours notice of a flight cancellation.\n• Provide an acceptable reason to their Supervisor / Manager for the cancellation.\n• Notify their Supervisor / Manager as soon as practicable in the event of injury or illness,\nand the expected duration of the absence.\n• Provide a medical certificate, or other evidence satisfactory to DIAB Engineering, to\nsupport the reason for missing the flight.\nWhere the evidence provided by the employee is not acceptable to DIAB Engineering,\nappropriate disciplinary procedures will be instigated. This may include, but is not limited to:\n• Deduction from wages for the cost of the booked flight if the flight is unable to be\nreclaimed, without additional expense, at another date.\n• Nonpayment for any hours not worked due to a missed flight.\n• Suspension of employment, without payment, until another flight is available.\nDIAB Engineering reserves the right to deduct the cost of a booked flight from an employee’s\nfinal pay if the employment ends as a result of the employee resigning whilst absent from site\non R&R without providing the required notice period.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHUR-POL-001-004 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "flight",
+      "diab",
+      "engineering",
+      "employee",
+      "without"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nMISSED FLIGHTS POLICY\nIt is DIAB Engineering’s intent to allow for adequate airfare travel for employees who are\nrequired to travel long distance for DIAB Engineering business. Where an employee fails to board their scheduled flight, without appropriate notice, it results\nin significant disruption at the work site and substantial expense to DIAB Engineering,\nincluding loss of the pre-paid fare and the administration costs of re- scheduling the flight and\nwork roster."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nELECTRONIC COMMUNICATIONS & SOCIAL MEDIA\nPOLICY\nDIAB Engineering is committed to a comprehensive strategy for proper and effective use of\ncomputer, internet and e-mail facilities. This includes:\n• Effectively using computer resources in a way that complies with legal and ethical\nstandards.\n• Maintaining the security of company computer resources.\n• Appropriately using e-mail and access to internet resources.\n• Respecting copyright and intellectual property laws and protocols.\nE-mail and internet activities are to be confined to DIAB Engineering business related\nactivities.\nE-mail and Internet communication originating from DIAB Engineering employees or\nrepresentatives must never contain inflammatory, harassing or defamatory language, and\nmust not be disruptive to the operations, or convey any material which would reflect poorly on\nDIAB Engineering’s reputation or its general public image.\nEnglish is the official language of Australia and is therefore the preferred method of electronic\ncommunication for all DIAB Engineering’s business activities. All correspondence must be\nmade in English when communicating in the workplace by email, letters and reports.\nDIAB Engineering prohibits any use of these resources for purposes that are deemed to be:\n• Unlawful, unethical or inappropriate\n• An unauthorised commercial activity\n• Discriminatory\n• Harassing or intimidating\nLimited personal use of computer resources may be approved by the CEO provided such\nusage is not in breach of this policy, or disruptive to performance or work colleagues.\nDIAB Engineering has the right to monitor and audit any use of its computing and\ncommunication networks and to access or retrieve any material or data that is accessed,\nstored or transmitted on or via these networks. Guidance regarding electronic communications\n& social media use is contained in the DIAB Engineering Employee Manual.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHUR-POL-001-006 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "diab",
+      "engineering",
+      "use",
+      "resources",
+      "computer"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nELECTRONIC COMMUNICATIONS & SOCIAL MEDIA\nPOLICY\nDIAB Engineering is committed to a comprehensive strategy for proper and effective use of\ncomputer, internet and e-mail facilities. This includes:\n• Effectively using computer resources in a way that complies with legal and ethical\nstandards."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nWORKPLACE BULLYING PREVENTION POLICY\nDiab Engineering is committed to providing and maintaining a safe work environment where\neveryone is treated with fairness, respect, equality and dignity.\nBehaviours involving bullying, harassment and discrimination are against the Diab\nEngineering values and pose a risk of injury or harm to employees and will not be tolerated.\nNotwithstanding, any person who claims to have experienced discrimination or harassment:\n• Should not be discouraged from discussing the problem with the other party in the first\ninstance (informal resolution) in an attempt to resolve the matter in a constructive\nmanner.\n• Is entitled to seek a formal investigation and determination of the complaint in\naccordance with this procedure.\n• Is entitled to pursue a complaint under the provisions of the WA Equal Employment\nOpportunity Act 1984 or the relevant Commonwealth legislation.\nDiscrimination, harassment and bullying behaviour poses a significant threat to the health,\nsafety and welfare of employees in the workplace and potentially has wider implications for\nemployers; including reduced profitability, low morale and increased absenteeism and staff\nturnover. In addition, employers ultimately remain responsible for the consequences of such\nbehaviours as a result of the employer’s duty of care under common law and under the\nOccupational Safety and Health Act 1984 (WA).\nDiab Engineering has created this policy and the associated Complaints Resolution Procedure\nin order to make the workplace safer for all employees and to minimise the risk to employees\nfrom such behaviour that may arise in the work environment.\nThis policy applies to all Diab Engineering employees, contractors and consultants including\nall full-time, part-time, casual and temporary employees, contractors or workers employed on\na commission basis.\nIn order to resolve or redress any complaint about discrimination, harassment or workplace\nbullying, employees should use the Complaints Resolution Procedure.\nBreaches of this policy may lead to disciplinary action being taken against an employee under\nthe Diab Engineering Disciplinary Policy.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nHUR-POL-001-007 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "employees",
+      "diab",
+      "engineering",
+      "policy",
+      "workplace"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nWORKPLACE BULLYING PREVENTION POLICY\nDiab Engineering is committed to providing and maintaining a safe work environment where\neveryone is treated with fairness, respect, equality and dignity. Behaviours involving bullying, harassment and discrimination are against the Diab\nEngineering values and pose a risk of injury or harm to employees and will not be tolerated."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nDISCIPLINE POLICY\nDiab Engineering is committed to providing a harmonious working environment for all\nemployees and will not tolerate misconduct at any level and is therefore eager to promote\norderly employment relations as well as fairness and consistency in the treatment of\nindividuals. This policy applies to all Diab Engineering employees.\nIt is a key responsibility of management to take ownership of behavioural/misconduct issues\nand to provide appropriate actions and accountability for necessary outcomes.\nAddressing misconduct issues is also imperative to Diab Engineering achieving its key\nbusiness objectives.\nThe Diab Disciplinary Procedure provides instructions for taking disciplinary action in relation\nto repeated misconduct in such a way as to uphold the Diab Engineering values and ensure\nthat employees are not treated harshly or unreasonably.\nDiab Engineering has the right to expect employees:\n• To carry out their duties to the best of their capabilities, and\n• To abide by the terms and conditions of their conditions of employment and the rules\nand regulations established by Diab Engineering.\nIt is recognised that day to day issues relating to conduct and behaviour will be resolved by\nmanagement and employees through the normal means of communication.\nHowever, where normal communications fail to resolve matters, or matters are considered\nsufficiently serious and where the Disciplinary Policy and Disciplinary Procedure is deemed\napplicable, any resultant disciplinary action will seek to be corrective in nature, be justifiable\nand be aimed at achieving acceptable standards of behaviour and effective employee\nrelations.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nMGT-POL-001-001 Rev 1 Date Issued 28/08/2018",
+    "keywords": [
+      "diab",
+      "engineering",
+      "employees",
+      "disciplinary",
+      "policy"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nDISCIPLINE POLICY\nDiab Engineering is committed to providing a harmonious working environment for all\nemployees and will not tolerate misconduct at any level and is therefore eager to promote\norderly employment relations as well as fairness and consistency in the treatment of\nindividuals. This policy applies to all Diab Engineering employees."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nQUALITY POLICY\nDIAB Engineering strives to conduct our business with a total commitment to our customers\nand their requirements. We define quality as conformance to our customer's needs, both\ninternal and external; and conformance to all quality requirements.\nWe will do this by aiming to meet or exceed our customer’s expectations and continually\nimproving our processes and systems.\nWe will achieve this by:\n• Delivering the highest level of quality products and engineering support services.\n• Ensuring that all quality management activities will contribute to achieving our quality\nobjectives.\n• Maintaining, monitoring, reviewing, auditing and continually improving our Quality\nManagement System.\n• Delivering our products and services consistently and reliably by working to\ndocumented procedures which are in accordance with ISO9001:2015, ISO17025:2005\nand legislative and industry standards.\n• Communicate and provide appropriate quality awareness training relative to the\ncompany’s quality objectives to all our personnel in promoting their involvement and\nresponsibility in the continuous improvement of our product and service quality\n• Ensuring that all employees understand and take ownership for quality and service\nstandards.\n• Promoting quality awareness with our clients, suppliers and other key stakeholders.\nThe achievement of our quality objectives and continual improvement is fundamental to all\nactivities carried out within our company and must be practiced by all employees as an integral\npart of their daily work.\nDIAB Engineering’s Management will ensure that this policy is communicated throughout the\nbusiness and that all policies and procedures are reviewed regularly.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nMGT-POL-001-002 Rev 03 Date Issued 28/08/2018",
+    "keywords": [
+      "quality",
+      "engineering",
+      "diab",
+      "management",
+      "objectives"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nQUALITY POLICY\nDIAB Engineering strives to conduct our business with a total commitment to our customers\nand their requirements. We define quality as conformance to our customer's needs, both\ninternal and external; and conformance to all quality requirements."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nOCCUPATIONAL HEALTH & SAFETY POLICY\nDIAB Engineering strives to maintain the highest standards possible in occupational health\nand safety practices, including creating and maintaining a healthy and safe workplace for all\nemployees, subcontractors, clients and visitors.\nOur objective is Zero Harm. We will promote a positive safety culture and achieve excellence\nthrough:\n• Consulting with clients and stakeholders to fully understand their requirements and to\nmeet or exceed their expectations;\n• Recognising that Health and Safety is fundamental in achieving excellence;\n• Ensuring DIAB Engineering meets AS/NZS 4801:2001 requirements and that they are\nintegrated into all business activities;\n• Complying with all relevant legislation and other obligations;\n• Using industry best practices to identify, eliminate and minimise risks so as to ensure\nproject realisation;\n• Establishing and achieving measurable Health and Safety objectives and targets;\n• Investing in the most appropriate technology solutions;\n• Ensuring our systems are flexible and to encourage new ideas, technologies and\ninnovations;\n• Ensuring all employees understand and take responsibility for their own work;\n• Actively seeking feedback from clients and stakeholders and addressing opportunities\nor areas for improvement and levels of satisfaction; and\n• Reviewing and revising our Health and Safety Policy periodically to maintain\nrelevance, effectiveness and appropriateness to our business.\nEach person in the workplace is responsible to:\n• Conduct their work in the safest possible manner to ensure they do not harm\nthemselves or others.\n• Ensure that they identify potential sources of hazards and act to manage those hazards\nat all times.\n• Stop, Act and Report on any hazards or unsafe behavior they see.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nMGT-POL-001-003 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "safety",
+      "health",
+      "diab",
+      "engineering",
+      "clients"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nOCCUPATIONAL HEALTH & SAFETY POLICY\nDIAB Engineering strives to maintain the highest standards possible in occupational health\nand safety practices, including creating and maintaining a healthy and safe workplace for all\nemployees, subcontractors, clients and visitors. Our objective is Zero Harm."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nENVIRONMENTAL POLICY\nDIAB Engineering recognises that it is our social responsibility to create and implement sound\nenvironmental principles throughout our business. We are committed to sustainable business\nsuccess to support the health and wellbeing of our people and protect the environment in\nwhich we work.\nWe are committed to performing our business in an environmentally responsible manner and\nwill pursue environmental excellence to achieve zero harm through:\n• Adoption of sustainable business practices.\n• Integrating environmental considerations into business planning.\n• Developing and implementing effective environmental management systems.\n• Planning and managing all work activities to minimise their impact on the environment\nthrough risk mitigation processes\n• Identify and address any new ‘environmental aspects’ that result from work /\noperational activities.\n• Observing all environment laws and complying with ISO14001:2015.\n• Building a culture by providing environmental awareness, advice and training to all\nemployees and subcontractors.\n• Timely reporting and recording all environmental incidents.\n• Pursuing all avenues for more efficient use of energy and materials.\n• Minimise waste and actively promote recycling across the business and amongst its\ncustomers and suppliers.\n• Working effectively with local communities on environmental issues.\n• Monitoring and analysing our “Environmental Objectives and Targets” to measure\nenvironmental performance.\n• Reviewing and revising our HSE policies periodically to maintain relevance,\neffectiveness and appropriateness to our business.\nDIAB Engineering will ensure that employees and subcontractors meet the minimum\nstandards required and that all employees and subcontractors fully support this policy and put\nit into practice.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nMGT-POL-001-006 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "environmental",
+      "business",
+      "diab",
+      "engineering",
+      "environment"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nENVIRONMENTAL POLICY\nDIAB Engineering recognises that it is our social responsibility to create and implement sound\nenvironmental principles throughout our business. We are committed to sustainable business\nsuccess to support the health and wellbeing of our people and protect the environment in\nwhich we work."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nINJURY MANAGEMENT POLICY\nDIAB Engineering is committed to creating and maintaining a safe working environment. We\nwill provide workplace-based injury management practices to facilitate and expedite the\nrecovery process and help employees return to work as soon as possible.\nWe will provide effective injury management through a timely, systematic and proactive\napproach combined with active participation and cooperation of the injured worker.\nWe will achieve this by:\n• Providing a safe and healthy workplace, and in the event of an injury, follow injury\nmanagement procedures accordingly.\n• Ensuring the injury management process is commenced as soon as possible following\nan injury and in accordance with medical advice and relevant legislation.\n• Complying with legislative obligations including requirements of the Workers’\nCompensation and Injury Management Act 1981.\n• Arranging suitable duties for injured or ill employees where possible, in accordance\nwith the worker’s medical restrictions through consultation with the injured worker,\ntreating doctor, rehabilitation provider and the relevant site supervisor/manager.\n• Ensuring that employees return to work as soon as practicable.\n• Formally monitoring, auditing and reviewing our injury management process and return\nto work programs to ensure they operate effectively and as a minimum comply with\nrelevant legal and other requirements.\nDIAB Engineering’s Management will ensure that this policy is communicated throughout the\nbusiness and successfully implemented by all employees.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nMGT-POL-001-007 Rev 01 Date Issued 28/08/2018",
+    "keywords": [
+      "injury",
+      "management",
+      "employees",
+      "diab",
+      "engineering"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nINJURY MANAGEMENT POLICY\nDIAB Engineering is committed to creating and maintaining a safe working environment. We\nwill provide workplace-based injury management practices to facilitate and expedite the\nrecovery process and help employees return to work as soon as possible."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nUNION RIGHT OF ENTRY POLICY\nA Trade Union Representative may seek to access a workplace in order to represent the\ninterests of their members or potential members. DIAB Engineering will ensure that the\nworkplace is not unduly disrupted by the exercise of representative rights.\nReasons for union officials to enter the workplace\nIn line with the Fair Work Act (2009) DIAB Engineering allows a union official to enter the\nworkplace during working hours for three specified reasons:\n1. To investigate suspected breaches of industrial law and instruments.",
+    "keywords": [
+      "union",
+      "workplace",
+      "representative",
+      "members",
+      "diab"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nUNION RIGHT OF ENTRY POLICY\nA Trade Union Representative may seek to access a workplace in order to represent the\ninterests of their members or potential members. DIAB Engineering will ensure that the\nworkplace is not unduly disrupted by the exercise of representative rights."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "3",
+    "level": "clause",
+    "title": "To hold discussions with employees.",
+    "text": "Union official requirements to enter the workplace\nBefore entering the workplace, a union official must:\n• Hold a valid and current federal permit to enter and inspect the premises\n• Provide at least 24 hours written notice of entry unless entry is under a work health and\nsafety (WHS) law.\nImportant protocols for a union official to enter the workplace\n• Employees are to inform their immediate supervisor, or senior management, immediately\nif a union representative requests entry.\n• If DIAB Engineering is not the “occupier” of the work site, then the relevant occupier must\nalso be informed.\nThe delegated DIAB Representative will ensure that:\n• The purpose for which the ROE is sought is identified and confirmed.\n• The entry is granted only for the day specified in the entry notice and that it is during\nworking hours.\n• The union delegate is to be escorted at all times.\n• Meetings are to be held in rooms/areas designated by DIAB Engineering and no access\nis provided to crib rooms.\nDIAB Engineering’s Senior Management and HR Department will manage compliance with Right\nof Entry for inspection and/or investigation of any suspected breach. DIAB Engineering will not\nhinder or refuse entry to a permit holder who is entitled to enter the premises under the Fair Work\nAct or an OHS law.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nMGT-POL-001-008 Rev 02 Date Issued 28/08/2018",
+    "keywords": [
+      "entry",
+      "diab",
+      "union",
+      "engineering",
+      "enter"
+    ],
+    "context": "Union official requirements to enter the workplace\nBefore entering the workplace, a union official must:\n• Hold a valid and current federal permit to enter and inspect the premises\n• Provide at least 24 hours written notice of entry unless entry is under a work health and\nsafety (WHS) law. Important protocols for a union official to enter the workplace\n• Employees are to inform their immediate supervisor, or senior management, immediately\nif a union representative requests entry."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nCORPORATE SOCIAL RESPONSIBILITY POLICY\nDIAB Engineering strives to operate a strong and sustainable business that contributes positively\nto the social, environmental and economic wellbeing of the local communities within which we\noperate. We are therefore committed to behaving ethically in all aspects of our business\noperations and operating in a socially responsible way.\nOur approach to Corporate Social Responsibility is structured around four key areas:\n• People: Our employees are instrumental to our ongoing business success, and we are\ncommitted to providing a positive and engaging workplace. In addition, we take steps to\nunderstand our impact on customers, sub-contractors, suppliers and the broader\ncommunity.\n• Environment: We value environmental sustainability, and ensure that we conduct our\nbusiness operations, decisions and actions with minimal impact to the natural\nenvironment.\n• The Economy: We will positively contribute to the local and national economy. We will\nproactively consider the financial and non-financial impact of our business operations,\ndecisions and actions on the sustainability and prosperity of the local and national\neconomy.\n• Community: We value our communities and take steps to understand and nurture our\nimpact on the local and wider community.\nCorporate Social Responsibility will be integrated into our daily operations by:\n• Valuing Communities: We will engage with all stakeholders, to meet or exceed ethical,\nlegal, commercial and public expectations.\n• Client Planning: We will undertaking formal reviews with our clients to identify how we\ncan link in with their corporate social responsibility plans, local communities and the\nsurrounding areas, and agree a specific action plan for the life of any contract.\n• Support Programs: We will ensure that our support programs and contributions,\nincluding financial donations and sponsorship to local sporting and community groups,\nare diverse and fair to all concerned.\n• Training and Development: We will provide active training and development programs\nsuch as apprentice intakes, assistance with senior high schools and workshop training for\ntechnical schools.\nWe strive to be a responsible “corporate citizen” and will continually seek ways that we can\npositively contribute to and support the communities within which we operate in.\nGlen Payne\nChief Executive Officer\nDIAB Engineering Pty Ltd\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 1",
+    "keywords": [
+      "local",
+      "corporate",
+      "social",
+      "business",
+      "communities"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nCORPORATE SOCIAL RESPONSIBILITY POLICY\nDIAB Engineering strives to operate a strong and sustainable business that contributes positively\nto the social, environmental and economic wellbeing of the local communities within which we\noperate. We are therefore committed to behaving ethically in all aspects of our business\noperations and operating in a socially responsible way."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nANTI-BRIBERY & CORRUPTION POLICY",
+    "keywords": [
+      "geraldton",
+      "australia",
+      "abn",
+      "corruption",
+      "policy"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nANTI-BRIBERY & CORRUPTION POLICY"
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "1",
+    "level": "clause",
+    "title": "Overview",
+    "text": "This Policy sets out the anti-bribery and corruption rules and principles that apply to DIAB\nEngineering Pty Ltd (DIAB).\nThis policy:\n• extends to all of DIAB’s dealings and transactions, both locally and overseas, with\nclients, government authorities, contractors, suppliers and the community as a whole;\n• applies to all DIAB directors, officers, employees, (DIAB Personnel) (and to the extent\nexpressly specified in this Policy, to DIAB’s contractors, suppliers and agents),\nregardless of where they are geographically located or locations in which they perform\nwork for DIAB; and\n• must be complied with even if the applicable local laws in any geographical area are\nnot as strict as the requirements set out in this Policy. Where local laws are stricter,\nDIAB personnel must comply with those laws in addition to this Policy.\nThis Policy applies to DIAB’s operations worldwide to ensure that DIAB complies with anti-bribery\nlaws (including the Australian Criminal Code 1995, the UK Bribery Act 2010 and the US Foreign\nCorrupt Practices Act 1977) that may apply beyond their national borders. The financial penalties\nfor bribery offences can potentially be very significant and serious for individuals and DIAB, and\nmay include fines of an unlimited amount and/or criminal sanctions.\nDIAB treats any breach of this Policy by any person or entity (including DIAB’s contractors and\nsuppliers) as a serious matter, and reserves the right to take appropriate disciplinary steps against\nany offenders where it considers it warranted.\nIf you are in doubt about whether something will violate this Policy or relevant laws, please contact\nBGC’s General Counsel (Belinda Murray, bmurray@bgc.cc, 9260 2316) before proceeding any\nfurther.",
+    "keywords": [
+      "diab",
+      "policy",
+      "laws",
+      "contractors",
+      "suppliers"
+    ],
+    "context": "This Policy sets out the anti-bribery and corruption rules and principles that apply to DIAB\nEngineering Pty Ltd (DIAB). This policy:\n• extends to all of DIAB’s dealings and transactions, both locally and overseas, with\nclients, government authorities, contractors, suppliers and the community as a whole;\n• applies to all DIAB directors, officers, employees, (DIAB Personnel) (and to the extent\nexpressly specified in this Policy, to DIAB’s contractors, suppliers and agents),\nregardless of where they are geographically located or locations in which they perform\nwork for DIAB; and\n• must be complied with even if the applicable local laws in any geographical area are\nnot as strict as the requirements set out in this Policy."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "2",
+    "level": "clause",
+    "title": "Bribery",
+    "text": "DIAB prohibits the giving or offering of bribes to anyone, regardless of whether the recipient is a\ngovernment or “Public Official” (as defined in section 3 below), or the recipient is acting for a\nprivate sector business. This prohibition applies to DIAB Personnel and DIAB’s contractors,\nsuppliers and agents.\nmailto:bmurray@bgc.cc\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 2",
+    "keywords": [
+      "diab",
+      "recipient",
+      "prohibits",
+      "giving",
+      "offering"
+    ],
+    "context": "DIAB prohibits the giving or offering of bribes to anyone, regardless of whether the recipient is a\ngovernment or “Public Official” (as defined in section 3 below), or the recipient is acting for a\nprivate sector business. This prohibition applies to DIAB Personnel and DIAB’s contractors,\nsuppliers and agents."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nBribery occurs where a person either:\noffers, promises or gives another person a benefit with the intention of influencing the recipient\nin the exercise of their duties to attract new business, keep existing business or secure\na business advantage, which is not legitimately due to the person; or\nrequests, agrees to receive or accepts such a benefit from a third party.\nAny sort of benefit or advantage that is offered or provided can constitute Bribery – ie. the benefit\ndoes not have to be financial, it can be anything that the proposed recipient attaches any form of\nvalue to (such as gifts, meals, tickets to sporting or entertainment functions, travel expenses,\ndiscounts, rebates, kick-backs, donations, preferential treatment and favours).\nImportantly, Bribery may occur regardless of whether:\n• the benefit in question is actually provided or whether it secures the outcome intended\n(ie. the mere offering or requesting of a benefit will still constitute bribery); or\n• the benefit in question is offered to, or accepted by, a third party (ie. someone other\nthan the two parties involved in the transaction or business opportunity).\nFacilitation Payments, and the offering, giving and/or receipt of Gifts or Hospitality, Political\nDonations or Sponsorships may constitute Bribery in relevant circumstances.\nAs a result, such benefits should only be offered, provided or received in accordance with this\nPolicy: see section 3, section 4 and section 5 (below).",
+    "keywords": [
+      "benefit",
+      "bribery",
+      "business",
+      "person",
+      "offered"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nBribery occurs where a person either:\noffers, promises or gives another person a benefit with the intention of influencing the recipient\nin the exercise of their duties to attract new business, keep existing business or secure\na business advantage, which is not legitimately due to the person; or\nrequests, agrees to receive or accepts such a benefit from a third party. Any sort of benefit or advantage that is offered or provided can constitute Bribery – ie."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "3",
+    "level": "clause",
+    "title": "Facilitation Payments",
+    "text": "DIAB prohibits the offering of, or making of, Facilitation Payments to any Public Officials. This\nprohibition applies to all DIAB Personnel and DIAB’s contractors, suppliers and agents.\nThe only situation Facilitation Payments are permissible is where your liberty or safety (or the\nliberty or safety of another person) is genuinely at risk if you do not make the Facilitation Payment.\nAny Facilitation Payment in such circumstances must be reported to BGC’s General Counsel as\nsoon as possible after it is made and you must maintain an accurate record of the payment (as\nset out in section 6(b) below).\nA Facilitation Payment is the payment of money or the provision of gifts to a public official in\norder to speed up or secure the performance of a routine action or process which DIAB is entitled\nto have performed for it, and the government official is ordinarily obliged to perform. A Facilitation\nPayment is a common example of Bribery.\nExamples of Facilitation Payments include:\n• a payment to a customs official to speed up the release of goods from a customs\nwarehouse, where the payer is entitled to the release of the goods and where the\npayment is outside of the official process; and\n• a payment outside of the official process to facilitate the installation of a telephone\nline where the payer is entitled to the line by law or contract.\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 3",
+    "keywords": [
+      "payment",
+      "facilitation",
+      "official",
+      "diab",
+      "payments"
+    ],
+    "context": "DIAB prohibits the offering of, or making of, Facilitation Payments to any Public Officials. This\nprohibition applies to all DIAB Personnel and DIAB’s contractors, suppliers and agents."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nPublic Officials are people who perform a public function in a\ncountry or location, and include but are not limited to:\n• any government officer, employee or other representative (local or national, foreign\nor domestic);\n• any person with a legislative, administrative or judicial function (whether appointed or\nelected). For example: judges, tax officials, customs officials, regulators, government\npersonnel who issue licences or permits, planning officials and immigration officials;\n• all politicians and political candidates (local or national, foreign or domestic);\n• any political party official;\n• any member of a royal or governing family, including any person who holds or\nperforms the duties of any appointment created by custom or convention or who\notherwise acts in an official capacity (including some indigenous or tribal leaders who\nare authorised to act on behalf of the relevant group);\n• the officers, employees and representatives of government-owned or controlled\norganisations and publicly-funded organisations. For example: employees of state-\nrun hospitals and employees of central banks. In numerous countries many\nbusinesses and organisations are State-owned enterprises so their employees would\nalso be public officials;\n• any international public organisation's employee, officer or representative, such as\nthe United Nations or the World Health Organisation; and\n• any person who holds themselves out to be an authorised intermediary of a\ngovernment official.",
+    "keywords": [
+      "officials",
+      "public",
+      "employees",
+      "government",
+      "person"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nPublic Officials are people who perform a public function in a\ncountry or location, and include but are not limited to:\n• any government officer, employee or other representative (local or national, foreign\nor domestic);\n• any person with a legislative, administrative or judicial function (whether appointed or\nelected). For example: judges, tax officials, customs officials, regulators, government\npersonnel who issue licences or permits, planning officials and immigration officials;\n• all politicians and political candidates (local or national, foreign or domestic);\n• any political party official;\n• any member of a royal or governing family, including any person who holds or\nperforms the duties of any appointment created by custom or convention or who\notherwise acts in an official capacity (including some indigenous or tribal leaders who\nare authorised to act on behalf of the relevant group);\n• the officers, employees and representatives of government-owned or controlled\norganisations and publicly-funded organisations."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "4",
+    "level": "clause",
+    "title": "Offering or Accepting Gifts or Hospitality",
+    "text": "Gifts or Hospitality means anything of value, and may take the form of money, meals, tickets to\nany functions (ie. business, entertainment or sporting functions, including functions hosted by\nDIAB or BGC Contracting), services, coupons or discounts, or a promise to provide any such\nbenefits in the future.\nDIAB personnel offering or providing Gifts or Hospitality to others (e.g. clients or prospective\nclients) or accepting Gifts or Hospitality from others (e.g. suppliers and subcontractors) can\nsometimes constitute Bribery.\nIn deciding whether to offer any Gifts or Hospitality to anyone, or accept Gifts or Hospitality from\nanyone, the following guidelines must be followed:\n(a) Gifts or Hospitality offered must not affect the independence or objectivity of the recipient.\nProfessional judgement and utmost care must be exercised at all times to ensure that the\noffering, giving or receiving of the Gifts or Hospitality does not create a reasonable\nperception that it is intended to influence the business relationship between the company\nand the recipient of the gift (or vice versa) in an improper or unprofessional way.\nAs a general rule, this means that Gifts or Hospitality should only be offered, or accepted,\nif they are occasional and of modest value.\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 4",
+    "keywords": [
+      "gifts",
+      "hospitality",
+      "functions",
+      "must",
+      "means"
+    ],
+    "context": "Gifts or Hospitality means anything of value, and may take the form of money, meals, tickets to\nany functions (ie. business, entertainment or sporting functions, including functions hosted by\nDIAB or BGC Contracting), services, coupons or discounts, or a promise to provide any such\nbenefits in the future."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n(b) Gifts of money must not be made or accepted unless prior\napproval is obtained from BGC’s General Counsel or BGC’s Chief Executive Officer.\n(c) Gifts or Hospitality must not be solicited or requested.\n(d) You must obtain prior written approval before offering, or accepting, any Gifts or Hospitality\nwhere:\n(i) the Gifts or Hospitality exceeds a value of AUD$300 per person regardless of who it\nis offered to or received from; or\n(ii) the Gifts or Hospitality (regardless of value) is to be provided to, or accepted from, a\nPublic Official.\nPrior approval must be obtained from the following individuals:\n• where the Gift takes the form of money – BGC’s Chief Executive Officer or General\nCounsel; and\n• where the Gift or Hospitality takes any other form – from a line-manager (who must\nbe at least at General Manager-level).\nOnce you have obtained approval to offer to any person (or receive from any person) a\nGift of Hospitality exceeding $300 in value, you must immediately complete a “Gift\nRegister Declaration” form and send it to the BGC’s General Counsel.\n(e) Keep a record of the Gift or Hospitality offered or accepted as set out in section 6(a) below.\nNote: Gifts or Hospitality offered to (or for the benefit of) a politician, political candidate, political\nparty representative, employee or intermediary, are likely to constitute a “political donation”, so\nplease refer to section 5 below for additional guidelines that apply.\nDIAB’s suppliers, agents and contractors must ensure that to the extent they offer any Gift or\nHospitality to any DIAB client or perspective client, it is made clear to the recipient that the Gifts\nor Hospitality are not made for (or on behalf of) DIAB, and/or on account of DIAB’s business\nrelationship with the recipient.",
+    "keywords": [
+      "hospitality",
+      "gifts",
+      "must",
+      "gift",
+      "approval"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n(b) Gifts of money must not be made or accepted unless prior\napproval is obtained from BGC’s General Counsel or BGC’s Chief Executive Officer. (c) Gifts or Hospitality must not be solicited or requested."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "5",
+    "level": "clause",
+    "title": "Political Donations and Sponsorships",
+    "text": "DIAB may only offer donations or sponsorship (including Political Donations) in accordance with\nBGC’s Donations & Sponsorships Policy.\nDIAB suppliers, agents and contractors are strictly prohibited from offering or making any\ndonations or sponsorships of any kind, unless the recipient understands that the contribution has\nnot been made for (or on behalf of) DIAB, and it is not associated with DIAB’s business with the\nrecipient.\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 5",
+    "keywords": [
+      "diab",
+      "donations",
+      "sponsorships",
+      "recipient",
+      "may"
+    ],
+    "context": "DIAB may only offer donations or sponsorship (including Political Donations) in accordance with\nBGC’s Donations & Sponsorships Policy. DIAB suppliers, agents and contractors are strictly prohibited from offering or making any\ndonations or sponsorships of any kind, unless the recipient understands that the contribution has\nnot been made for (or on behalf of) DIAB, and it is not associated with DIAB’s business with the\nrecipient."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n6. The do’s and don’ts\n(a) Things you should do to help ensure compliance with DIAB’s legal obligations\n(i) Create a culture that aligns with our values by:\n• acting honestly and ethically in all your business dealings;\n• complying with, and being accountable for adherence with, the law, as well as\nDIAB’s policies and business procedures;\n• promptly reporting any suspected or actual violations of this Policy to BGC’s\nGeneral Counsel;\n• seeking guidance from BGC’s General Counsel when faced with any ethical or\nlegal challenge; and\n• if you operate in a supervisory role – always:\no engage in model ethical behaviour;\no encourage open communication with employees and provide guidance and\nfeedback in response to their questions or concerns;\no report violations, escalating issues or seek help from BGC’s General\nCounsel; and\no ensure that no employee is retaliated against for reporting suspected or\npotential violations of this Policy or applicable laws.\n• Where you have received prior approval to offer or receive a gift valued at $300\nor more per person to or from anyone, immediately complete the “Gift Register\nDeclaration” form and send it to the General Counsel.\n(ii) Record-keeping – keep accurate financial and business records that fairly reflect any\nbusiness dealings you conduct on behalf of DIAB, especially in relation to Gifts or\nHospitality you offer to third parties. DIAB prohibits any accounts being kept \"off-\nbook\" to facilitate or conceal improper payments.\nFor any Gifts or Hospitality you offer or receive from anyone, you must keep the\nfollowing records, which can be produced to DIAB upon request:\n• the date the offer was originally made, and the date it was accepted;\n• the description of the Gift or Hospitality (e.g. location of the function, the item\ngiven);\n• the name and title of the individuals to whom the gift was offered, and those\nwho accepted it;\n• the business purpose/reason for the expense or gift; and\n• the total value of the Gift or Hospitality offered to the client, and the total value\nof the accepted Gift or Hospitality.\nNote: The obligation to maintain your own records of any Gift or Hospitality you offer\nor receive, is separate from (and in addition to) your obligation to complete a “Gift\nRegister Declaration” where required by this policy.\n(iii) Attend and complete all training sessions or e-modules that DIAB offers regarding the\napplication of this Policy.\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 6",
+    "keywords": [
+      "gift",
+      "diab",
+      "hospitality",
+      "business",
+      "offer"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n6. The do’s and don’ts\n(a) Things you should do to help ensure compliance with DIAB’s legal obligations\n(i) Create a culture that aligns with our values by:\n• acting honestly and ethically in all your business dealings;\n• complying with, and being accountable for adherence with, the law, as well as\nDIAB’s policies and business procedures;\n• promptly reporting any suspected or actual violations of this Policy to BGC’s\nGeneral Counsel;\n• seeking guidance from BGC’s General Counsel when faced with any ethical or\nlegal challenge; and\n• if you operate in a supervisory role – always:\no engage in model ethical behaviour;\no encourage open communication with employees and provide guidance and\nfeedback in response to their questions or concerns;\no report violations, escalating issues or seek help from BGC’s General\nCounsel; and\no ensure that no employee is retaliated against for reporting suspected or\npotential violations of this Policy or applicable laws."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nIt is the responsibility of each executive, officer,\nemployee, contractor and agent to attend training that provides you with more\ninformation on this Policy and the laws that may apply in the jurisdictions in which you\nwork. If you are ever in doubt, please contact BGC’s General Counsel.\n(b) Things you must not do\nIt is important that you do not do any of the following which may constitute a breach of our\nobligations:\n• offer, promise or give Gifts or Hospitality to a person if that is intended to convince\nthe person (or could be reasonably perceived as trying to influence the person) to\nperform their job improperly or to reward such improper performance;\n• offer, give or receive Gifts or Hospitality that create (or could reasonably be perceived\nas trying to create) a business obligation between DIAB and another party;\n• offer, promise or give Gifts or Hospitality to a person where you know their governing\nstatute or internal policy prohibits the giving or receiving of gifts or attendance at\ncorporate hospitality;\n• offer, promise, give or receive Gifts or Hospitality to a Public Official without the prior\napproval of BGC’s General Counsel or BGC’s Chief Executive Officer – and do not\nrequest approval for such Gifts or Hospitality where you consider it is inconsistent\nwith the spirit of this Policy;\n• offer, promise, give or receive Gifts or Hospitality to, or from, a particular person so\nregularly or frequently as to create an impression of impropriety;\n• offer, promise, give or receive Gifts or Hospitality valued at more than AUD$300 (per\nperson) without the prior written approval described in Section 4(d) of this policy;\n• offer, promise, give or receive Gifts or Hospitality of a nature that are illegal or\ninconsistent with the company’s image as a leading construction, contracting and\nmining services business;\n• offer, promise, give or receive Gifts or Hospitality that could be considered\ndisproportionate;\n• offer, promise, give or receive money;\n• solicit or request Gifts or Hospitality to be provided;\n• accept an offer of free travel or accommodation unless:\n(i) it is for business-related purposes; and\n(ii) prior written approval has been obtained in accordance with Section 4(d) of this\npolicy.\nThese rules are strict – and DIAB personnel must ensure they do not engage in prohibited\nconduct regardless of:\n• the country in which you or the recipient of the benefit is located;\n• whether the benefit is promised or given to the person concerned or to a third party\n(e.g. a family member);\n• whether the benefit is promised or given by you personally or by a third person (e.g.\nan agent or intermediary);\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 7",
+    "keywords": [
+      "gifts",
+      "hospitality",
+      "offer",
+      "give",
+      "promise"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\nIt is the responsibility of each executive, officer,\nemployee, contractor and agent to attend training that provides you with more\ninformation on this Policy and the laws that may apply in the jurisdictions in which you\nwork. If you are ever in doubt, please contact BGC’s General Counsel."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n• local custom/locally acceptable practice;\n• the value of the benefit; or\n• whether the benefit to the business of DIAB has already occurred (e.g. a gift given\nafter a decision is made by a Public Official).",
+    "keywords": [
+      "benefit",
+      "geraldton",
+      "australia",
+      "abn",
+      "local"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n• local custom/locally acceptable practice;\n• the value of the benefit; or\n• whether the benefit to the business of DIAB has already occurred (e.g. a gift given\nafter a decision is made by a Public Official)."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "7",
+    "level": "clause",
+    "title": "Business Associates",
+    "text": "DIAB may be held liable for any Bribes offered or paid by its Business Associates (or received by\nits Business Associates) which are considered to confer a direct or indirect benefit on DIAB.\nBusiness Associates are people or corporate entities that interact with others for, or on\nbehalf of DIAB. A party may be a Business Associate of DIAB because either:\n• DIAB has formally requested or authorised it to act on DIAB’s behalf (either orally or\nin writing); or\n• based on its past dealings with DIAB, a reasonable person would assume that the\nparty is acting for or on behalf of DIAB (regardless of whether DIAB has authorised it\nto act for or on behalf of DIAB in this instance).\nBusiness Associates may include:\n• agents, consultants, intermediaries and other representatives (including import and\ncustomer agents);\n• finders and introducers;\n• brokers;\n• vendors and outsourcers;\n• tax advisors, lawyers and sales and marketing firms;\n• lobbyists (of any kind);\n• joint venture partners; and\n• subsidiaries and affiliates.\nPlease also consult the BGC Process Document titled “Business Associates – Red Flags” for\nexamples of some factors or circumstances that suggest a potential Business Associate may\npose a heightened Anti-bribery & Corruption risk\nPrior to engaging any Business Associate for DIAB:\n(a) ensure you conduct any tender or expression of interest to identify a suitable Business\nAssociate in a manner that is consistent with the spirit of BGC’s Tendering & Procurement\nPolicy;\nMGT-POL-001-009 Rev06 Date Issued 28/08/2018\nPage 8",
+    "keywords": [
+      "diab",
+      "business",
+      "associates",
+      "may",
+      "behalf"
+    ],
+    "context": "DIAB may be held liable for any Bribes offered or paid by its Business Associates (or received by\nits Business Associates) which are considered to confer a direct or indirect benefit on DIAB. Business Associates are people or corporate entities that interact with others for, or on\nbehalf of DIAB."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "20",
+    "level": "clause",
+    "title": "Foskew Way",
+    "text": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n(b) if the Business Associate may operate for, or on behalf of,\nDIAB in a country outside Australia – if the country in question scores below 40 on\nTransparency International's most recent Corruption Perceptions Index (see\nhttps://www.transparency.org/country/), do not authorise the Business Associate to provide\nservices to DIAB in that country until you receive written approval from BGC’s General\nCounsel; and\n(c) seek written approval from BGC’s General Counsel to continue using the Business\nAssociate where:\n(i) the Business Associate has undergone a change in senior management since DIAB\nengaged it; or\n(ii) DIAB’s contract with the Business Associate has been in place for more than 36\nmonths.\n8. Reporting & Whistleblowing\nIf you identify, or have any reasons to suspect that DIAB personnel or DIAB’s suppliers, agents\nor contractors have acted in manner that is inconsistent with this Policy, please report this matter\nto DIAB in accordance with BGC’s Whistleblower Reporting policy.\nDIAB does not tolerate retaliation of any kind against personnel who raise genuine concerns or\nwho participate in the investigation of a report of suspected misconduct. If you engage in\nretaliation you will be subject to disciplinary action, which may include termination of your\nemployment.\nDIAB takes all reported concerns seriously. Where appropriate, DIAB will investigate reports of\nbribery in any way connected to DIAB, and consider what action to take as a result of such\ninvestigations (including, where applicable, disciplinary action against personnel (which may\ninclude dismissal), termination of business relationships and reports to relevant governmental\nauthorities or regulators).",
+    "keywords": [
+      "diab",
+      "business",
+      "associate",
+      "may",
+      "country"
+    ],
+    "context": "Geraldton, WA 6532\nAUSTRALIA\nPh: +61 8 9956 8000\ndiabengineering.com.au\nABN: 95 611036 689\n(b) if the Business Associate may operate for, or on behalf of,\nDIAB in a country outside Australia – if the country in question scores below 40 on\nTransparency International's most recent Corruption Perceptions Index (see\nhttps://www.transparency.org/country/), do not authorise the Business Associate to provide\nservices to DIAB in that country until you receive written approval from BGC’s General\nCounsel; and\n(c) seek written approval from BGC’s General Counsel to continue using the Business\nAssociate where:\n(i) the Business Associate has undergone a change in senior management since DIAB\nengaged it; or\n(ii) DIAB’s contract with the Business Associate has been in place for more than 36\nmonths. 8."
+  },
+  {
+    "file_name": "policy_3.pdf",
+    "clause_id": "9",
+    "level": "clause",
+    "title": "Queries",
+    "text": "Please contact BGC’s General Counsel immediately if:\n• you have any query about the application of this Policy; or\n• you are unsure how this Policy operates in conjunction with other BGC policies.\nhttps://www.transparency.org/country/\nHSE-POL-001-001 Rev 05 Risk Management 2019\nHSE-POL-001-002 Rev06 Indigenous Policy\nHSE-POL-001-003 Rev 05 Fatigue Management\nHSE-POL-001-004 Rev 04 Drug, Alcohol and Smoking Policy 2019\nHSE-POL-001-005 Rev 02 Fitness for Work Policy 2019\nHSE-POL-001-006 Rev 03 Equal Opportunity Policy 2019\nHSE-POL-001-007 Rev 03 Dimension & Loading Management Policy 2019\nHSE-POL-001-008 Rev 02 HVA Maintenance Management Policy 2019\nHUR-POL-001-003 Rev 06 Missed Flight Policy 2019\nHUR-POL-001-004 Rev 02 Electronic Communications & Social Media Policy 2019\nHUR-POL-001-006 Rev 02 WOrkplace Bullying Prevention Policy 2019\nHUR-POL-001-007 Rev 02 Discipline Policy 2019\nMGT-POL-001-001 Rev 11 Quality Policy 2019\nMGT-POL-001-002 Rev 03 OH&S Policy 2019\nMGT-POL-001-003 Rev 02 Enviromental Policy 2019\nMGT-POL-001-006 Rev 02 Injury Management Policy 2019\nMGT-POL-001-007 Rev 01 Union Right of Entry Policy 2019\nMGT-POL-001-008 Rev 02 Corporate Social Responsibility Policy 2019\nMGT-POL-001-009 Rev06 Anti-Bribery & Corruption Policy 2019",
+    "keywords": [
+      "policy",
+      "rev",
+      "management",
+      "bgc",
+      "social"
+    ],
+    "context": "Please contact BGC’s General Counsel immediately if:\n• you have any query about the application of this Policy; or\n• you are unsure how this Policy operates in conjunction with other BGC policies. https://www.transparency.org/country/\nHSE-POL-001-001 Rev 05 Risk Management 2019\nHSE-POL-001-002 Rev06 Indigenous Policy\nHSE-POL-001-003 Rev 05 Fatigue Management\nHSE-POL-001-004 Rev 04 Drug, Alcohol and Smoking Policy 2019\nHSE-POL-001-005 Rev 02 Fitness for Work Policy 2019\nHSE-POL-001-006 Rev 03 Equal Opportunity Policy 2019\nHSE-POL-001-007 Rev 03 Dimension & Loading Management Policy 2019\nHSE-POL-001-008 Rev 02 HVA Maintenance Management Policy 2019\nHUR-POL-001-003 Rev 06 Missed Flight Policy 2019\nHUR-POL-001-004 Rev 02 Electronic Communications & Social Media Policy 2019\nHUR-POL-001-006 Rev 02 WOrkplace Bullying Prevention Policy 2019\nHUR-POL-001-007 Rev 02 Discipline Policy 2019\nMGT-POL-001-001 Rev 11 Quality Policy 2019\nMGT-POL-001-002 Rev 03 OH&S Policy 2019\nMGT-POL-001-003 Rev 02 Enviromental Policy 2019\nMGT-POL-001-006 Rev 02 Injury Management Policy 2019\nMGT-POL-001-007 Rev 01 Union Right of Entry Policy 2019\nMGT-POL-001-008 Rev 02 Corporate Social Responsibility Policy 2019\nMGT-POL-001-009 Rev06 Anti-Bribery & Corruption Policy 2019"
+  }
+]

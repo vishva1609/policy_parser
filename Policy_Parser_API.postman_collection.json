@@ -1,0 +1,89 @@
+{
+  "info": {
+    "name": "Policy Parser API",
+    "_postman_id": "policy-parser-api-v1",
+    "description": "Collection to test all endpoints of the Policy Parser FastAPI server running at http://localhost:8000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["health"]
+        },
+        "description": "Quick liveness probe - always returns 200 OK with {\"status\": \"ok\", \"service\": \"policy-parser\"}"
+      },
+      "response": []
+    },
+    {
+      "name": "2. Parse Raw Text",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"3.1 Introduction\\nThis policy applies to all staff.\\n- All employees must comply.\\n- Data must be protected.\\n3.2 Data Retention\\nData must be kept for 7 years minimum.\\n3.3 Security\\nAll systems must use encryption.\",\n  \"file_name\": \"test_policy.txt\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/parse/text",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["parse", "text"]
+        },
+        "description": "Send raw policy text and receive structured JSON with clauses, sub-clauses, keywords and context."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Upload PDF",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "C:\\policy_parser\\bank_policy.pdf",
+              "description": "Upload a PDF policy document"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8000/parse",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["parse"]
+        },
+        "description": "Upload a PDF file and receive structured JSON with all clauses, sub-clauses and bullet points."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ]
+}

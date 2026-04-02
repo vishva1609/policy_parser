@@ -1,0 +1,5 @@
+tika
+nltk
+fastapi
+uvicorn[standard]
+python-multipart
