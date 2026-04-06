@@ -1,17 +1,237 @@
 """
-Main pipeline orchestrator with enhanced features.
+Main pipeline orchestrator with schemas, knowledge graph, and chunk writer.
+
+Merges former schemas.py, knowledge_graph.py, chunk_file_writer.py, and pipeline.py.
 """
 from pathlib import Path
-from typing import Dict, Any
 import json
+import uuid
+from typing import List, Dict, Any, Optional
+from datetime import datetime
 
-from .parser import SimplePDFParser
-from .chunker import DocumentChunker
+import networkx as nx
+
+from .schemas import DocumentElement, DocumentSection, ParsedDocument, DocumentChunk, EmbeddedChunk
+from .document_processor import SimplePDFParser, DocumentChunker
 from .embedder import EmbeddingPipeline
-from .knowledge_graph import KnowledgeGraph
 from .excel_generator import ExcelGenerator
-from .chunk_file_writer import ChunkFileWriter
 
+
+# ============================================================
+# Knowledge Graph (formerly knowledge_graph.py)
+# ============================================================
+
+class KnowledgeGraph:
+    """Manage document structure and relationships."""
+    
+    def __init__(self):
+        """Initialize graph."""
+        self.graph = nx.DiGraph()
+    
+    def add_document(self, doc: ParsedDocument):
+        """Add document to graph."""
+        # Add document node
+        self.graph.add_node(
+            doc.document_id,
+            type="document",
+            filename=doc.filename,
+            total_pages=doc.total_pages
+        )
+        
+        # Add sections
+        for section in doc.sections:
+            section_id = f"{doc.document_id}_section_{section.title[:30]}"
+            self.graph.add_node(
+                section_id,
+                type="section",
+                title=section.title,
+                pages=f"{section.page_start}-{section.page_end}"
+            )
+            self.graph.add_edge(doc.document_id, section_id, relation="contains")
+    
+    def add_chunks(self, chunks: List[DocumentChunk]):
+        """Add chunks to graph."""
+        for chunk in chunks:
+            self.graph.add_node(
+                chunk.chunk_id,
+                type="chunk",
+                preview=chunk.text[:100] + "...",
+                pages=str(chunk.pages)
+            )
+            self.graph.add_edge(chunk.document_id, chunk.chunk_id, relation="has_chunk")
+    
+    def save(self, output_path: str):
+        """Save graph to JSON."""
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        data = nx.node_link_data(self.graph)
+        with open(output_path, 'w') as f:
+            json.dump(data, f, indent=2, default=str)
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get graph statistics."""
+        return {
+            "nodes": self.graph.number_of_nodes(),
+            "edges": self.graph.number_of_edges()
+        }
+
+
+# ============================================================
+# Chunk File Writer (formerly chunk_file_writer.py)
+# ============================================================
+
+class ChunkFileWriter:
+    """Write each chunk to a separate file (with overwrite protection)"""
+    
+    def __init__(self, output_dir: str = "output/chunks"):
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+    
+    def write_chunks_to_files(
+        self, 
+        chunks: List[DocumentChunk],
+        document_name: str,
+        format: str = "txt",
+        overwrite: bool = False
+    ) -> List[str]:
+        """
+        Write each chunk to a separate file.
+        
+        Args:
+            chunks: List of document chunks
+            document_name: Base name for files
+            format: File format ('txt', 'json', or 'md')
+            overwrite: If False, skip existing files
+        
+        Returns:
+            List of file paths created/skipped
+        """
+        base_name = Path(document_name).stem
+        file_paths = []
+        skipped = 0
+        created = 0
+        
+        # Create document-specific directory
+        doc_dir = self.output_dir / base_name
+        doc_dir.mkdir(parents=True, exist_ok=True)
+        
+        for i, chunk in enumerate(chunks, 1):
+            if format == "txt":
+                file_path = doc_dir / f"chunk_{i:03d}.txt"
+            elif format == "json":
+                file_path = doc_dir / f"chunk_{i:03d}.json"
+            elif format == "md":
+                file_path = doc_dir / f"chunk_{i:03d}.md"
+            else:
+                raise ValueError(f"Unsupported format: {format}")
+            
+            # Check if file exists
+            if file_path.exists() and not overwrite:
+                skipped += 1
+                file_paths.append(str(file_path))
+                continue
+            
+            # Write file
+            if format == "txt":
+                self._write_txt(file_path, chunk, i)
+            elif format == "json":
+                self._write_json(file_path, chunk, i)
+            elif format == "md":
+                self._write_markdown(file_path, chunk, i)
+            
+            created += 1
+            file_paths.append(str(file_path))
+        
+        if skipped > 0:
+            print(f"Created {created} chunks, skipped {skipped} existing files in {doc_dir}")
+        else:
+            print(f"Written {created} chunks to {doc_dir}")
+        
+        return file_paths
+    
+    def _write_txt(self, file_path: Path, chunk: DocumentChunk, index: int):
+        """Write chunk as plain text file"""
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(f"=== CHUNK {index} ===\n")
+            f.write(f"ID: {chunk.chunk_id}\n")
+            f.write(f"Section: {chunk.parent_context[0] if chunk.parent_context else 'N/A'}\n")
+            f.write(f"Pages: {chunk.pages}\n")
+            f.write(f"Type: {chunk.chunk_type}\n")
+            f.write(f"Characters: {len(chunk.text)}\n")
+            f.write("\n" + "="*50 + "\n\n")
+            f.write(chunk.text)
+    
+    def _write_json(self, file_path: Path, chunk: DocumentChunk, index: int):
+        """Write chunk as JSON file"""
+        data = {
+            'chunk_index': index,
+            'chunk_id': chunk.chunk_id,
+            'document_id': chunk.document_id,
+            'text': chunk.text,
+            'pages': chunk.pages,
+            'chunk_type': chunk.chunk_type,
+            'parent_context': chunk.parent_context,
+            'metadata': chunk.metadata
+        }
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+    
+    def _write_markdown(self, file_path: Path, chunk: DocumentChunk, index: int):
+        """Write chunk as Markdown file"""
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(f"# Chunk {index}\n\n")
+            f.write(f"**ID:** `{chunk.chunk_id}`  \n")
+            f.write(f"**Section:** {chunk.parent_context[0] if chunk.parent_context else 'N/A'}  \n")
+            f.write(f"**Pages:** {chunk.pages}  \n")
+            f.write(f"**Type:** {chunk.chunk_type}  \n")
+            f.write(f"**Length:** {len(chunk.text)} characters  \n\n")
+            f.write("---\n\n")
+            f.write(chunk.text)
+    
+    def create_index_file(
+        self, 
+        chunks: List[DocumentChunk],
+        document_name: str,
+        overwrite: bool = False
+    ) -> str:
+        """Create an index file listing all chunks"""
+        base_name = Path(document_name).stem
+        doc_dir = self.output_dir / base_name
+        index_path = doc_dir / "index.json"
+        
+        # Check if exists
+        if index_path.exists() and not overwrite:
+            print(f"Index file already exists: {index_path}")
+            return str(index_path)
+        
+        index_data = {
+            'document': document_name,
+            'total_chunks': len(chunks),
+            'chunks': []
+        }
+        
+        for i, chunk in enumerate(chunks, 1):
+            index_data['chunks'].append({
+                'chunk_number': i,
+                'chunk_id': chunk.chunk_id,
+                'section': chunk.parent_context[0] if chunk.parent_context else 'N/A',
+                'pages': chunk.pages,
+                'chunk_type': chunk.chunk_type,
+                'file': f"chunk_{i:03d}.txt",
+                'char_count': len(chunk.text),
+                'preview': chunk.text[:200] + '...' if len(chunk.text) > 200 else chunk.text
+            })
+        
+        with open(index_path, 'w', encoding='utf-8') as f:
+            json.dump(index_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"Created index file: {index_path}")
+        return str(index_path)
+
+
+# ============================================================
+# Document Pipeline (orchestrator)
+# ============================================================
 
 class DocumentPipeline:
     """End-to-end document processing pipeline with Excel and file-per-chunk features."""

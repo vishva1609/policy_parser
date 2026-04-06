@@ -58,9 +58,55 @@ python text_extraction.py document.pdf --advanced [options]
 | `--temperature=X` | 0.3 | Controls output randomness. 0.0 = deterministic, 1.0 = creative. Lower values produce more focused, consistent compliance questions. |
 | `--max-tokens=N` | 2048 | Maximum response length in tokens. Increase if responses are getting truncated. |
 | `--top-p=X` | 1.0 | Nucleus sampling threshold. Lower values restrict output to higher-probability tokens. Avoid changing both temperature and top_p simultaneously. |
-| `--model=NAME` | mistral-small-latest | Mistral model to use. Options: `mistral-small-latest`, `mistral-medium-latest`, `mistral-large-latest`. |
+| `--model=NAME` | mistral-small-latest | Mistral model to use. Options: `mistral-small-latest`, `mistral-medium-latest`, `mistral-large-latest`, and open-source variants. |
 
-Examples:
+### Interactive Mode
+
+Configure hyperparameters at runtime with prompts:
+
+```bash
+# Launch interactive configuration
+python text_extraction.py document.pdf --advanced --interactive
+# or
+python text_extraction.py document.pdf --advanced -i
+```
+
+This will prompt you for each hyperparameter with explanations and allow you to select a model from a numbered list.
+
+### Auto-Tuning
+
+Automatically find optimal hyperparameters for your document:
+
+```bash
+python text_extraction.py document.pdf --advanced --auto-tune
+```
+
+Auto-tuning tests multiple hyperparameter combinations and scores results based on:
+- Coverage: Does it generate questions for all statements?
+- Specificity: Are questions detailed enough?
+- Diversity: Are different question types generated?
+- Actionability: Do questions contain action-oriented language?
+
+Results are saved to model-specific files under `output/tuning/`, for example `output/tuning/tuning_results_mistral-small-latest.json`.
+
+### Model Comparison
+
+Compare different models to find the most efficient one for your use case:
+
+```bash
+# Compare all available models
+python text_extraction.py document.pdf --advanced --compare-models
+
+# List available models with descriptions
+python text_extraction.py --list-models
+```
+
+This generates a comparison report showing:
+- Question quality scores
+- Generation time per model
+- Recommendations for different use cases (production, development, cost-optimized)
+
+### Examples
 
 ```bash
 # Use a larger model for higher quality questions
@@ -71,7 +117,27 @@ python text_extraction.py document.pdf --advanced --temperature=0.1
 
 # Increase token limit for longer responses
 python text_extraction.py document.pdf --advanced --max-tokens=4096
+
+# Interactive mode - prompts for all settings
+python text_extraction.py document.pdf --advanced -i
+
+# Find best hyperparameters automatically
+python text_extraction.py document.pdf --advanced --auto-tune
+
+# Compare models and use the best one
+python text_extraction.py document.pdf --advanced --compare-models
 ```
+
+### Available Models
+
+| Model | Speed | Quality | Cost | Best For |
+|---|---|---|---|---|
+| mistral-small-latest | Fast | Good | Low | Development, testing, prototyping |
+| mistral-medium-latest | Medium | Better | Medium | Balanced production use |
+| mistral-large-latest | Slower | Best | High | Critical compliance applications |
+| open-mistral-7b | Fast | Good | Free | Self-hosting, cost-sensitive |
+| open-mixtral-8x7b | Medium | Better | Free | Open-source balanced option |
+| open-mixtral-8x22b | Slower | Best (open) | Free | Highest quality open-source |
 
 ### Python API
 
@@ -97,6 +163,41 @@ for result in search_results['results']:
 
 # Keyword search via Excel
 excel_results = pipeline.search_in_excel(results['excel_path'], "security")
+```
+
+### Adaptive Tuning for Deployment
+
+For end-user deployment where users shouldn't need to manually tune hyperparameters:
+
+```python
+from src.question_generator import QuestionGenerator, AdaptiveTuner
+
+# Initialize adaptive tuner (loads pre-tuned configs)
+tuner = AdaptiveTuner(config_path="output/tuning/tuning_results_mistral-small-latest.json")
+
+# Get optimal parameters based on document type detection
+optimal_params = tuner.get_optimal_params(chunks=your_chunks)
+
+# Use detected/optimal parameters
+generator = QuestionGenerator(
+    temperature=optimal_params['temperature'],
+    max_tokens=optimal_params['max_tokens'],
+    top_p=optimal_params['top_p']
+)
+
+# Generate questions with optimal settings
+questions = generator.generate_questions_from_statements(statements)
+
+# Collect user feedback for future improvements
+AdaptiveTuner.save_feedback(questions, {'quality': 'good', 'coverage': 'complete'})
+```
+
+**Deployment workflow:**
+1. Run `--auto-tune` during initial setup to find optimal parameters
+2. Results are saved to `output/tuning/tuning_results_<model>.json`
+3. `AdaptiveTuner` loads these results automatically for future runs
+4. Document type detection provides fallback presets (policy, technical, general)
+5. User feedback is collected to improve tuning over time
 ```
 
 ## Output Structure
@@ -154,7 +255,9 @@ DocumentPipeline(embedding_model="all-mpnet-base-v2")
 │   ├── excel_generator.py      # Excel index and compliance report generation
 │   ├── schemas.py              # Pydantic data models
 │   ├── policy_analyzer.py      # Policy statement extraction and categorization
-│   └── question_generator.py   # LangChain + Mistral compliance question generation
+│   ├── question_generator.py   # LangChain + Mistral compliance question generation
+│   │                           # Includes AutoTuner and AdaptiveTuner classes
+│   └── model_comparison.py     # Model comparison and benchmarking tool
 ├── samples/                    # Input PDF documents
 └── output/                     # Generated outputs (gitignored)
 ```
