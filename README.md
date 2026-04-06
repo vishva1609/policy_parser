@@ -1,309 +1,192 @@
-# Document Processing Pipeline
+# Policy Compliance Pipeline
 
-A PDF processing pipeline for semantic search and AI-powered policy compliance analysis. Built with LangChain and Mistral for intelligent question generation from policy documents.
+This project compares two policy documents clause by clause and shows where **Policy B** is compliant, partially compliant, non-compliant, or missing coverage against **Policy A** (source of truth).
 
-## Features
+It targets policy audit workflows where you need the verdict plus traceability: file, clause, sub-clause, section, page, and explanation.
 
-| Feature | Standard Mode | Advanced Mode |
-|---|---|---|
-| PDF parsing and chunking | Yes | Yes |
-| Semantic search (ChromaDB) | Yes | Yes |
-| Excel searchable index | Yes | Yes |
-| Knowledge graph generation | Yes | Yes |
-| Policy statement extraction | -- | Yes |
-| Compliance question generation | -- | Yes |
-| Requirement extraction | -- | Yes |
+The layout follows the same layered idea as [qa-bot-llm](https://github.com/archit1012/qa-bot-llm): **views** (HTTP/CLI) → **service** (orchestration) → **models** (parsers, segmenters, embedders) → **common** (schemas, LLM helpers).
 
-## Prerequisites
+## Repository layout (project root)
 
-- Python 3.9 or higher
-- Mistral API key (required for advanced mode only)
+Keep these folders at the **main directory** (repository root):
 
-## Installation
+| Folder | Purpose |
+|--------|---------|
+| **`tests/`** | Pytest suite. Convention is root-level `tests/`; run with `uv run pytest`. |
+| **`samples/`** | Example PDFs or small fixtures for local runs and demos. Large binaries can stay untracked (see `.gitignore`). |
+| **`output/`** | **Generated** artifacts: Excel reports, JSON, ChromaDB `vectordb/`, chunk exports. Listed in `.gitignore` so you do not commit build output. |
 
-```bash
-pip install -e .
+Application code lives under **`app/`** (not `src/`).
+
+## What it implements today
+
+- PDF parsing with **PyMuPDF**
+- Optional **JSON** document path for the document-QA flow (see Flask `/upload`)
+- Clause and sub-clause segmentation (regex-first, optional LLM fallback)
+- Clause embeddings (**sentence-transformers**) and **ChromaDB** indexing
+- Semantic top-k matching and **Mistral**-based compliance reasoning with gap detection
+- Bidirectional scoring (A→B and B→A)
+- **Excel** and **JSON** comparison outputs; segment manifest for audit
+- **FastAPI** endpoint for policy comparison (Excel download)
+- **Flask** endpoint for RAG Q&A over a single document (same pattern as qa-bot `/upload`)
+
+## Installation (uv)
+
+This project is set up for **[uv](https://github.com/astral-sh/uv)** and a local **`.venv/`**.
+
+```powershell
+cd "path\to\File Parsing"
+uv sync --all-groups
 ```
 
-For environment variable support:
+Optional: activate the venv.
 
-```bash
-pip install python-dotenv
+```powershell
+.\.venv\Scripts\Activate.ps1
 ```
 
-## Usage
+Dependencies are declared in `pyproject.toml`; lockfile is `uv.lock`.
 
-### Command Line
+Environment:
 
-```bash
-# Standard processing
-python text_extraction.py [path/to/document.pdf]
-
-# Advanced mode with compliance analysis
-python text_extraction.py [path/to/document.pdf] --advanced
-```
-
-If no PDF path is provided, the pipeline defaults to `samples/Information Security & Management Policy v3.pdf`.
-
-### Advanced Mode Options
-
-The following parameters control LLM behavior during question generation:
-
-```bash
-python text_extraction.py document.pdf --advanced [options]
-```
-
-| Option | Default | Description |
-|---|---|---|
-| `--temperature=X` | 0.3 | Controls output randomness. 0.0 = deterministic, 1.0 = creative. Lower values produce more focused, consistent compliance questions. |
-| `--max-tokens=N` | 2048 | Maximum response length in tokens. Increase if responses are getting truncated. |
-| `--top-p=X` | 1.0 | Nucleus sampling threshold. Lower values restrict output to higher-probability tokens. Avoid changing both temperature and top_p simultaneously. |
-| `--model=NAME` | mistral-small-latest | Mistral model to use. Options: `mistral-small-latest`, `mistral-medium-latest`, `mistral-large-latest`, and open-source variants. |
-
-### Interactive Mode
-
-Configure hyperparameters at runtime with prompts:
-
-```bash
-# Launch interactive configuration
-python text_extraction.py document.pdf --advanced --interactive
-# or
-python text_extraction.py document.pdf --advanced -i
-```
-
-This will prompt you for each hyperparameter with explanations and allow you to select a model from a numbered list.
-
-### Auto-Tuning
-
-Automatically find optimal hyperparameters for your document:
-
-```bash
-python text_extraction.py document.pdf --advanced --auto-tune
-```
-
-Auto-tuning tests multiple hyperparameter combinations and scores results based on:
-- Coverage: Does it generate questions for all statements?
-- Specificity: Are questions detailed enough?
-- Diversity: Are different question types generated?
-- Actionability: Do questions contain action-oriented language?
-
-Results are saved to model-specific files under `output/tuning/`, for example `output/tuning/tuning_results_mistral-small-latest.json`.
-
-### Model Comparison
-
-Compare different models to find the most efficient one for your use case:
-
-```bash
-# Compare all available models
-python text_extraction.py document.pdf --advanced --compare-models
-
-# List available models with descriptions
-python text_extraction.py --list-models
-```
-
-This generates a comparison report showing:
-- Question quality scores
-- Generation time per model
-- Recommendations for different use cases (production, development, cost-optimized)
-
-### Examples
-
-```bash
-# Use a larger model for higher quality questions
-python text_extraction.py document.pdf --advanced --model=mistral-large-latest
-
-# More focused output with lower temperature
-python text_extraction.py document.pdf --advanced --temperature=0.1
-
-# Increase token limit for longer responses
-python text_extraction.py document.pdf --advanced --max-tokens=4096
-
-# Interactive mode - prompts for all settings
-python text_extraction.py document.pdf --advanced -i
-
-# Find best hyperparameters automatically
-python text_extraction.py document.pdf --advanced --auto-tune
-
-# Compare models and use the best one
-python text_extraction.py document.pdf --advanced --compare-models
-```
-
-### Available Models
-
-| Model | Speed | Quality | Cost | Best For |
-|---|---|---|---|---|
-| mistral-small-latest | Fast | Good | Low | Development, testing, prototyping |
-| mistral-medium-latest | Medium | Better | Medium | Balanced production use |
-| mistral-large-latest | Slower | Best | High | Critical compliance applications |
-| open-mistral-7b | Fast | Good | Free | Self-hosting, cost-sensitive |
-| open-mixtral-8x7b | Medium | Better | Free | Open-source balanced option |
-| open-mixtral-8x22b | Slower | Best (open) | Free | Highest quality open-source |
-
-### Python API
-
-```python
-from src.pipeline import DocumentPipeline
-
-pipeline = DocumentPipeline(
-    chunk_by="section",
-    embedding_model="all-MiniLM-L6-v2",
-    output_dir="./output",
-    max_chunk_chars=3000,
-    min_chunk_chars=500
-)
-
-results = pipeline.process_document("document.pdf")
-
-# Semantic search
-search_results = pipeline.search("data security policy", n_results=5)
-for result in search_results['results']:
-    print(f"[{result['rank']}] Score: {result['score']}")
-    print(f"Section: {result.get('section')}, Pages: {result.get('pages')}")
-    print(result['text'][:200])
-
-# Keyword search via Excel
-excel_results = pipeline.search_in_excel(results['excel_path'], "security")
-```
-
-### Adaptive Tuning for Deployment
-
-For end-user deployment where users shouldn't need to manually tune hyperparameters:
-
-```python
-from src.question_generator import QuestionGenerator, AdaptiveTuner
-
-# Initialize adaptive tuner (loads pre-tuned configs)
-tuner = AdaptiveTuner(config_path="output/tuning/tuning_results_mistral-small-latest.json")
-
-# Get optimal parameters based on document type detection
-optimal_params = tuner.get_optimal_params(chunks=your_chunks)
-
-# Use detected/optimal parameters
-generator = QuestionGenerator(
-    temperature=optimal_params['temperature'],
-    max_tokens=optimal_params['max_tokens'],
-    top_p=optimal_params['top_p']
-)
-
-# Generate questions with optimal settings
-questions = generator.generate_questions_from_statements(statements)
-
-# Collect user feedback for future improvements
-AdaptiveTuner.save_feedback(questions, {'quality': 'good', 'coverage': 'complete'})
-```
-
-**Deployment workflow:**
-1. Run `--auto-tune` during initial setup to find optimal parameters
-2. Results are saved to `output/tuning/tuning_results_<model>.json`
-3. `AdaptiveTuner` loads these results automatically for future runs
-4. Document type detection provides fallback presets (policy, technical, general)
-5. User feedback is collected to improve tuning over time
-```
-
-## Output Structure
-
-```
-output/
-├── vectordb/                          # ChromaDB vector database
-├── chunks/[document]/
-│   ├── chunk_001.txt                  # Individual chunk files
-│   └── index.json
-├── [document]_searchable_index.xlsx   # Excel searchable index
-├── [document]_parsed.json             # Parsed document structure
-├── [document]_graph.json              # Knowledge graph
-│
-│   # Advanced mode only:
-├── compliance_questions.json
-├── compliance_questions.xlsx          # Sheets: Questions / By Category / By Type / Requirements
-└── policy_statements.json
-```
+- **`MISTRAL_API_KEY`** — required for LLM segmentation, compliance reasoning, and RAG QA.
+- **`MISTRAL_MODEL`** — optional override (default `mistral-small-latest`).
+- **`EMBEDDING_MODEL`** — optional override for sentence-transformers (API layers).
 
 ## Configuration
 
-### Chunking Strategies
+Root **`config.yaml`** drives defaults for chunking, comparison thresholds, LLM model name, and output directory. Load programmatically via `PipelineRunner.from_config_file()` or the helpers used by the FastAPI comparison service.
+
+## Main pipelines
+
+### 1. Policy comparison (Python API)
 
 ```python
-# Section-based (default) — groups content by document sections
-DocumentPipeline(chunk_by="section", max_chunk_chars=3000, min_chunk_chars=500)
+from pathlib import Path
+from app.service.comparison_service import PolicyComparisonPipeline
 
-# Paragraph-based — finer granularity, useful for large documents
-DocumentPipeline(chunk_by="paragraph", max_chunk_chars=2000)
+pipeline = PolicyComparisonPipeline(output_dir="./output")
+report_path = pipeline.compare(
+    pdf_a="samples/policy_a.pdf",
+    pdf_b="samples/policy_b.pdf",
+)
+print(report_path)
 ```
 
-### Embedding Models
+Or use the **views** layer with dependency injection:
 
 ```python
-# Default — fast, 384 dimensions
-DocumentPipeline(embedding_model="all-MiniLM-L6-v2")
+from app.views.pipeline_runner import PipelineRunner
 
-# Higher quality, 768 dimensions
-DocumentPipeline(embedding_model="all-mpnet-base-v2")
+runner = PipelineRunner()  # or PipelineRunner.from_config_file()
+excel_path = runner.run_comparison_pipeline("samples/A.pdf", "samples/B.pdf")
 ```
 
-## Project Structure
+### 2. Manifest-only (no LLM comparison cost)
 
-```
-├── text_extraction.py          # CLI entry point
-├── pyproject.toml              # Project configuration and dependencies
-├── src/
-│   ├── pipeline.py             # Main pipeline orchestrator
-│   ├── parser.py               # PDF parsing (PyMuPDF)
-│   ├── chunker.py              # Document chunking with boundary detection
-│   ├── embedder.py             # Embedding generation and ChromaDB indexing
-│   ├── knowledge_graph.py      # Document relationship graph (NetworkX)
-│   ├── chunk_file_writer.py    # Individual chunk file output
-│   ├── excel_generator.py      # Excel index and compliance report generation
-│   ├── schemas.py              # Pydantic data models
-│   ├── policy_analyzer.py      # Policy statement extraction and categorization
-│   ├── question_generator.py   # LangChain + Mistral compliance question generation
-│   │                           # Includes AutoTuner and AdaptiveTuner classes
-│   └── model_comparison.py     # Model comparison and benchmarking tool
-├── samples/                    # Input PDF documents
-└── output/                     # Generated outputs (gitignored)
+Inspect segmentation and metadata before a full run:
+
+```python
+from app.service.comparison_service import PolicyComparisonPipeline
+
+pipeline = PolicyComparisonPipeline(output_dir="./output", use_llm_segmentation=False)
+manifest_path = pipeline.build_manifest("samples/A.pdf", "samples/B.pdf")
 ```
 
-## How It Works
+### 3. Single-document pipeline (CLI)
 
-### Standard Pipeline (7 steps)
-
-1. **Parse PDF** — Extracts text with font metadata, detects headings and section boundaries
-2. **Chunk** — Splits content by section or paragraph, respecting sentence boundaries
-3. **Excel Index** — Generates a searchable `.xlsx` with content, page numbers, and keywords
-4. **Chunk Files** — Writes individual `.txt` / `.json` / `.md` files per chunk
-5. **Chunk Index** — Creates a JSON index of all chunks with metadata
-6. **Embed and Index** — Generates sentence-transformer embeddings, stores in ChromaDB
-7. **Knowledge Graph** — Builds a directed graph linking documents, sections, and chunks
-
-### Advanced Pipeline (adds 3 steps)
-
-1. **Policy Statement Extraction** — Identifies and categorizes policy statements across 14 categories (Access Control, Data Security, Compliance, Privacy, etc.)
-2. **Compliance Question Generation** — Uses LangChain with Mistral to generate audit, implementation, verification, and requirement questions from extracted policy statements
-3. **Report Export** — Outputs questions and statements to JSON and a multi-sheet Excel report
-
-Non-content pages (cover pages, table of contents) are automatically detected and excluded from analysis.
-
-## Environment Setup
-
-Create a `.env` file in the project root for advanced mode:
-
-```
-MISTRAL_API_KEY=your_api_key_here
+```powershell
+uv run python text_extraction.py samples\your.pdf
+uv run python text_extraction.py samples\your.pdf --advanced
 ```
 
-Get an API key from [Mistral Console](https://console.mistral.ai/).
+### 4. HTTP APIs
 
-## Troubleshooting
+**FastAPI — policy comparison** (default port 8000):
 
-| Problem | Solution |
-|---|---|
-| Import errors | Run `pip install -e .` to install all dependencies |
-| API key error | Create `.env` with `MISTRAL_API_KEY=your_key` |
-| Quota exceeded | Wait for rate limit reset or upgrade Mistral plan |
-| No PDF found | Provide a path or place PDFs in `./samples/` |
-| Excel file locked | Close the file in Excel before re-running |
-| Memory issues | Use `chunk_by="paragraph"` for large documents |
-| Truncated responses | Increase `--max-tokens` value |
+```powershell
+uv run uvicorn app.fastapi_app:app --reload --port 8000
+```
 
-## License
+- `GET /health` — liveness
+- `POST /compare/policies` — form fields `policy_a`, `policy_b` (PDFs); returns an **Excel** report when `MISTRAL_API_KEY` is set  
+- `POST /tools/semantic-search` — form fields: `policy` (PDF), `query`, optional `top_k` (1–50). Indexes that PDF in a temp workspace and returns ranked chunk hits (for debugging retrieval).
+- `POST /tools/questions-from-policy` — form field `policy` (PDF) plus optional: uploaded `tuning_json` (AutoTuner output), or `use_cached_tuning` + `tuning_model` + `output_dir` to load `output/tuning/tuning_results_<model>.json`. Uses **AdaptiveTuner** `best_params` / **score** for **QuestionGenerator** hyperparameters before you run a full compare.
+- `GET /tools/tuning/available` — lists cached `tuning_results_*.json` files, or checks one model’s file and returns `cached_score` if present.
 
-MIT
+**Sessions — step-by-step comparison (debug each stage)**
+
+1. `POST /sessions` — multipart `policy_a`, `policy_b` (PDFs) → `{ session_id }`.
+2. `GET /sessions/{session_id}` — which steps have finished + paths.
+3. `POST /sessions/{session_id}/steps/parse` → parsed JSON on disk.
+4. `POST /.../steps/segment` → clause JSON.
+5. `POST /.../steps/embed` → Chroma + `segment_manifest.json`.
+6. `POST /.../steps/compare` — needs `MISTRAL_API_KEY` → comparison result JSON.
+7. `POST /.../steps/score` → `comparison_scores.json`.
+8. `POST /.../steps/export` → Excel + full comparison JSON.
+9. `GET /.../exports/excel` / `GET /.../exports/json` — download artifacts.
+10. `GET /.../artifacts/parsed/{a|b}` / `GET /.../artifacts/manifest` — inspect JSON.
+11. `DELETE /sessions/{session_id}` — remove session folder.
+
+- OpenAPI: `http://localhost:8000/docs`
+
+**Flask — document Q&A** (RAG; default port 5000 in `app/app.py`):
+
+```powershell
+uv run python -m app.app
+```
+
+- `POST /upload` — `doc_file` + `question_file` (see `APIs.postman_collection.json`)
+
+Postman variables: `base_url` (Flask), `fastapi_url` (FastAPI).
+
+## Important output files (under `./output/`)
+
+These are created at runtime (folder is gitignored except optional `.gitkeep`):
+
+- `segment_manifest.json` — clauses and sub-clauses prepared for indexing  
+- `comparison_<a>_vs_<b>.json` — structured comparison result  
+- `compliance_report_*.xlsx` — human-readable report  
+- `vectordb/` — persistent ChromaDB data for the pipeline  
+
+## Vector DB traceability (Chroma metadata)
+
+Each embedded clause/sub-clause is stored in Chroma with rich metadata so you can backtrack matches during audits and debugging. In addition to clause identifiers (e.g. `clause_id`, `sub_clause_id`, `parent_clause_id`) the stored metadata includes:
+
+- `session_id` — ties embeddings to a specific FastAPI session (step-by-step flow) or one-shot compare run
+- `indexed_at` — UTC ISO timestamp of indexing
+- `source_policy` / `policy_label` — which policy the chunk came from (`A`/`B`)
+- `source_pdf_name` / `filename` — original PDF name
+- `source_page_start` / `source_page_end` (and `page`) — provenance in the source document
+- `text_sha256` — hash of chunk text to detect drift / re-embedding changes
+
+## Similarity and gap thresholds
+
+`PolicyComparisonPipeline` accepts:
+
+- `missing_similarity_threshold` — similarities below this tend toward **Missing** (default `0.30`)  
+- `gap_similarity_threshold` — used with LLM output for **Non-Compliant** / gap logic (default `0.50`)  
+
+You can set these in **`config.yaml`** (used when running via `PipelineRunner.from_config_file()` or the FastAPI comparison path that merges YAML defaults).
+
+## Tests
+
+From the repository root:
+
+```powershell
+uv run pytest tests -q
+```
+
+## Roadmap (high level)
+
+- DOCX and additional ingest backends (beyond PDF/JSON)  
+- Stronger segmentation on difficult PDFs; optional obligation-aware rules (`must` vs `should`)  
+- Async or job-based comparison for very large policies  
+- Richer scoring (e.g. critical vs non-critical gaps)  
+- Optional PDF report export; separate frontend consumes Excel/JSON APIs  
+
+## Low-cost tips
+
+- Run **`build_manifest()`** before **`compare()`** to validate segmentation.  
+- Set **`use_llm_segmentation=False`** when PDFs are clean and structured.  
+- Prefer **`mistral-small-latest`** unless you have measured need for a larger model.  

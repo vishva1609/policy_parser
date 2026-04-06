@@ -121,6 +121,14 @@ MISTRAL_MODELS = {
 # Max number of distinct question types used for diversity scoring
 MAX_QUESTION_TYPES = 4
 
+# Pre-selected combos for fast tuning — only 3 API trial batches instead of up to 9.
+# Order matters: the typically-winning combo is listed first.
+FAST_SEARCH_SPACE = [
+    {'temperature': 0.2, 'top_p': 0.95, 'max_tokens': 2048},  # policy preset — usually wins
+    {'temperature': 0.3, 'top_p': 1.0,  'max_tokens': 2048},  # general preset
+    {'temperature': 0.1, 'top_p': 0.90, 'max_tokens': 1024},  # minimal / cheapest
+]
+
 
 # ============================================================
 # Question Generator
@@ -449,47 +457,84 @@ class AutoTuner:
         self,
         sample_chunks: list,
         max_trials: int = 9,
-        output_dir: str = "./output"
+        output_dir: str = "./output",
+        skip_if_cached: bool = True,
+        fast_mode: bool = True,
     ) -> tuple:
         """
         Run hyperparameter tuning on a sample of document chunks.
-        
+
         Args:
-            sample_chunks: List of document chunks to test on
-            max_trials: Maximum number of parameter combinations to try
-            output_dir: Directory to save tuning results
-            
+            sample_chunks:   Document chunks to test on.
+            max_trials:      Max combos in full mode (ignored in fast_mode).
+            output_dir:      Directory to save/load tuning results.
+            skip_if_cached:  Return cached results immediately if score ≥ 60.
+                             Set False to force a re-tune.  (BIG cost saver)
+            fast_mode:       Use 3 curated combos + 2 statements instead of
+                             a full grid search.  ~6 API calls vs. up to 90.
         Returns:
             Tuple of (best_params_dict, all_results_list)
         """
         from .policy_analyzer import PolicyAnalyzer
-        
-        # Extract policy statements for testing
-        analyzer = PolicyAnalyzer()
-        statements = analyzer.analyze_document(sample_chunks)
-        requirements = analyzer.get_requirements(statements, min_confidence=0.5)
-        
-        if len(requirements) < 3:
-            print("Warning: Not enough requirement statements for tuning, using all statements")
-            test_statements = statements[:5]
+
+        # ── 1. Cache check — biggest cost saver ──────────────────────────
+        if skip_if_cached:
+            cached_path = self.get_tuning_output_path(output_dir, self.model)
+            if cached_path.exists():
+                try:
+                    with open(cached_path) as f:
+                        cached = json.load(f)
+                    bp = cached.get('best_params', {})
+                    if bp and float(bp.get('score', 0)) >= 60:
+                        print(
+                            f"\n[AutoTuner] ✅ Cached results found "
+                            f"(score={bp['score']:.1f}, model={self.model}).\n"
+                            f"  Skipping API calls. Delete '{cached_path.name}' "
+                            f"to force a re-tune."
+                        )
+                        return bp, cached.get('all_trials', [])
+                except Exception:
+                    pass  # corrupt cache — fall through to re-tune
+
+        # ── 2. Choose search space ─────────────────────────────────────
+        if fast_mode:
+            param_combinations = list(FAST_SEARCH_SPACE)
+            max_test_stmts     = 2
         else:
-            test_statements = requirements[:5]  # Use subset for faster tuning
-        
-        print(f"Using {len(test_statements)} statements for tuning")
-        
-        results = []
-        best_score = -1
+            param_combinations = self._generate_combinations(max_trials)
+            max_test_stmts     = 5
+
+        est_calls = len(param_combinations) * max_test_stmts * 2
+        mode_tag  = "⚡ FAST" if fast_mode else "🔴 FULL (expensive!)"
+        print(
+            f"\n[AutoTuner] {mode_tag} MODE — "
+            f"{len(param_combinations)} trials × {max_test_stmts} stmts × 2 q "
+            f"= ~{est_calls} API calls"
+        )
+
+        # ── 3. Extract test statements ─────────────────────────────────
+        analyzer     = PolicyAnalyzer()
+        statements   = analyzer.analyze_document(sample_chunks)
+        requirements = analyzer.get_requirements(statements, min_confidence=0.5)
+
+        candidates       = requirements if len(requirements) >= 2 else statements
+        test_statements  = candidates[:max_test_stmts]
+        if not test_statements:
+            test_statements = statements[:max_test_stmts]
+        print(f"  Using {len(test_statements)} statements for tuning")
+
+        # ── 4. Trial loop ─────────────────────────────────────────────
+        results     = []
+        best_score  = -1
         best_params = None
-        
-        # Generate parameter combinations
-        param_combinations = self._generate_combinations(max_trials)
-        
+
         for i, params in enumerate(param_combinations, 1):
-            print(f"\n[Trial {i}/{len(param_combinations)}] "
-                  f"temp={params['temperature']}, top_p={params['top_p']}, tokens={params['max_tokens']}")
-            
+            print(
+                f"\n  [Trial {i}/{len(param_combinations)}] "
+                f"temp={params['temperature']}, top_p={params['top_p']}, "
+                f"tokens={params['max_tokens']}"
+            )
             try:
-                # Generate questions with these parameters
                 generator = QuestionGenerator(
                     api_key=self.api_key,
                     model=self.model,
@@ -501,50 +546,35 @@ class AutoTuner:
                     seed=self.seed,
                     top_k=self.top_k,
                 )
-                
                 questions = generator.generate_questions_from_statements(
                     test_statements,
                     questions_per_statement=2,
-                    batch_size=5
+                    batch_size=5,
                 )
-                
-                # Score the results
                 score = self._score_questions(questions, test_statements)
-                
-                results.append({
+                trial = {
                     **params,
                     'frequency_penalty': self.frequency_penalty,
-                    'presence_penalty': self.presence_penalty,
-                    'seed': self.seed,
-                    'top_k': self.top_k,
-                    'score': score,
-                    'num_questions': len(questions)
-                })
-                
-                print(f"  Score: {score:.2f} | Questions: {len(questions)}")
-                
+                    'presence_penalty':  self.presence_penalty,
+                    'seed':              self.seed,
+                    'top_k':             self.top_k,
+                    'score':             score,
+                    'num_questions':     len(questions),
+                }
+                results.append(trial)
+                print(f"    Score: {score:.2f} | Questions: {len(questions)}")
                 if score > best_score:
-                    best_score = score
-                    best_params = {
-                        **params,
-                        'frequency_penalty': self.frequency_penalty,
-                        'presence_penalty': self.presence_penalty,
-                        'seed': self.seed,
-                        'top_k': self.top_k,
-                        'score': score
-                    }
-                
-                # Rate limiting
+                    best_score  = score
+                    best_params = {**trial}
                 time.sleep(2)
-                
             except Exception as e:
-                print(f"  Error: {str(e)[:100]}")
+                print(f"    Error: {str(e)[:100]}")
                 results.append({**params, 'score': 0, 'error': str(e)[:100]})
-        
-        # Save tuning results
+
+        # ── 5. Save & return ───────────────────────────────────────────
         self._save_results(results, best_params, output_dir)
-        
         return best_params, results
+
     
     def _generate_combinations(self, max_trials: int) -> list:
         """Generate hyperparameter combinations to test."""

@@ -1,0 +1,41 @@
+# config.yaml
+# Centralised configuration for the File Parsing pipeline.
+# Mirrors the config pattern used in archit1012/qa-bot-llm.
+# Load with: import yaml; cfg = yaml.safe_load(open("config.yaml"))
+
+# ── LLM ───────────────────────────────────────────────────────────────────────
+llm:
+  model: "mistral-small-latest"     # Fast + cost-effective default (overridden by MISTRAL_MODEL env)
+  temperature: 0.1                  # Low = deterministic; override with MISTRAL_TEMPERATURE env if set
+  max_tokens: 2048
+  # top_p: 0.95                      # Optional nucleus sampling (omit = provider default)
+  # API key: MISTRAL_API_KEY env (never hardcode here)
+
+# ── Embeddings ─────────────────────────────────────────────────────────────────
+embeddings:
+  model: "all-MiniLM-L6-v2"        # Lightweight, fast, good semantic quality
+  batch_size: 32
+  normalize: true
+
+# ── Chunking ───────────────────────────────────────────────────────────────────
+chunking:
+  strategy: "section"               # "section" | "paragraph"
+  max_chars: 3000
+  min_chars: 500
+
+# ── Comparison thresholds ──────────────────────────────────────────────────────
+comparison:
+  missing_threshold: 0.30           # Max similarity → clause tagged "Missing"
+  gap_threshold: 0.50               # Below this + LLM Non-Compliant → Non-Compliant
+  top_k_candidates: 5               # Candidates retrieved per source clause
+  llm_fallback_chars: 1500          # Min chars in a clause to trigger LLM segmentation
+
+# ── Segmentation ───────────────────────────────────────────────────────────────
+segmentation:
+  use_llm_fallback: true            # Set false to skip LLM (saves API cost)
+
+# ── Output ─────────────────────────────────────────────────────────────────────
+output:
+  dir: "./output"
+  chunk_format: "txt"               # "txt" | "json" | "md"
+  overwrite_chunks: false

@@ -29,6 +29,7 @@ ENV/
 # IDEs
 .vscode/
 .idea/
+.cursor/
 *.swp
 *.swo
 *~
@@ -37,8 +38,12 @@ ENV/
 output/
 !output/.gitkeep
 
+# Runtime uploads / generated artifacts (FastAPI sessions, tools, compare runs)
+app/data/**
+!app/data/**/.gitkeep
+
 # Sample PDFs (optional - uncomment if you don't want to commit samples)
-# samples/*.pdf
+samples/*.pdf
 
 # Model cache
 .layoutparser/

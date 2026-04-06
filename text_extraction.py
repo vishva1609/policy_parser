@@ -15,8 +15,18 @@ Hyperparameter Options:
   --model=NAME          : Mistral model name
   --auto-tune           : Automatically tune hyperparameters for best accuracy
   --compare-models      : Compare different models for efficiency
+
+Architecture note:
+  This script is the views/CLI entry point.
+  It delegates to app.views.pipeline_runner.PipelineRunner (views layer),
+  which calls app.service.document_service.DocumentService (service layer),
+  which uses app.models.* (models layer).
+  This mirrors the layered architecture of archit1012/qa-bot-llm.
 """
-from src.pipeline import DocumentPipeline
+# ── New layered architecture imports ────────────────────────────────────────
+from app.views.pipeline_runner import PipelineRunner
+from app.service.document_service import DocumentService
+
 from pathlib import Path
 import sys
 import json
@@ -27,17 +37,22 @@ try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
-    pass  # python-dotenv not required for standard mode
+    pass  # python-rtv not required for standard mode
 
-# Advanced components (optional)
+# Advanced components (optional) — now in app/models/
 try:
-    from src.policy_analyzer import PolicyAnalyzer
-    from src.question_generator import QuestionGenerator, AutoTuner, AdaptiveTuner, ModelComparator, list_available_models
-    from src.excel_generator import export_compliance_questions_to_excel
+    from app.models.policy_analyzer import PolicyAnalyzer
+    from app.models.question_generator import (
+        QuestionGenerator,
+        AutoTuner,
+        AdaptiveTuner,
+        ModelComparator,
+        list_available_models,
+    )
+    from app.common.excel_utils import export_compliance_questions_to_excel
     ADVANCED_AVAILABLE = True
 except ImportError as e:
     ADVANCED_AVAILABLE = False
-    # Debug: print what failed to import
     if "--debug" in sys.argv:
         print(f"DEBUG: Advanced import error: {e}")
 
@@ -455,22 +470,22 @@ def main():
     
     # Single output directory
     output_dir = "output"
-    
-    # Initialize pipeline
-    pipeline = DocumentPipeline(
+
+    # Initialize pipeline using DocumentService (app/service layer)
+    service = DocumentService(
         output_dir=output_dir,
         max_chunk_chars=3000,
         min_chunk_chars=500
     )
-    
+
     try:
         # Process with intelligent chunking
-        results = pipeline.process_document(
+        results = service.process(
             pdf_path,
-            output_format="txt",      # or "json" or "md"
-            overwrite_files=False     # Don't overwrite existing files
+            output_format="txt",
+            overwrite_files=False
         )
-        
+
         # Display statistics
         print("\nPROCESSING STATISTICS:")
         print("-" * 80)
@@ -478,7 +493,7 @@ def main():
         print(f"  Total Sections:     {results['stats']['total_sections']}")
         print(f"  Total Chunks:       {results['stats']['total_chunks']}")
         print(f"  Avg Chunk Size:     {results['stats']['avg_chunk_size']} chars")
-        print(f"  Files Created:      {results['stats']['total_files_created']}")
+        print(f"  Chunk Files:        {len(results.get('chunk_files', []))}")
         print("-" * 80)
         
         # Advanced Processing (if enabled)
@@ -661,11 +676,10 @@ def main():
         # Summary
         print("\nOUTPUT FILES:")
         print("-" * 80)
-        print(f"Excel Index:     {results['excel_path']}")
-        print(f"Chunk Files:     {len(results['chunk_files'])} files in {output_dir}/chunks/")
-        print(f"Chunk Index:     {results['index_path']}")
-        print(f"Vector DB:       {output_dir}/vectordb/")
-        print(f"JSON Outputs:    {output_dir}/[document]_parsed.json, _graph.json")
+        print(f"  Excel Index  : {results.get('excel_path', 'N/A')}")
+        print(f"  Chunk Files  : {len(results.get('chunk_files', []))} files in {output_dir}/chunks/")
+        print(f"  Vector DB    : {output_dir}/vectordb/")
+        print(f"  Parsed JSON  : {output_dir}/[document]_parsed.json")
         
         if advanced_mode and 'compliance_questions' in results:
             print(f"\nADVANCED OUTPUTS:")
