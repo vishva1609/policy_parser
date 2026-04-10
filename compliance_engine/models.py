@@ -3,16 +3,15 @@ compliance_engine/models.py
 ──────────────────────────
 SQLAlchemy Models for PostgreSQL
 """
-from sqlalchemy import Column, Integer, String, Float, JSON, DateTime, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, Float, JSON, DateTime, ForeignKey, Text, func
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from .database import Base
 
 class Document(Base):
     __tablename__ = "documents"
     id = Column(Integer, primary_key=True, index=True)
     file_name = Column(String, index=True)
-    upload_date = Column(DateTime, default=datetime.utcnow)
+    upload_date = Column(DateTime, default=func.now())
     total_clauses = Column(Integer)
     
     clauses = relationship("Clause", back_populates="document", cascade="all, delete")
@@ -47,4 +46,4 @@ class ComparisonJob(Base):
     overall_score = Column(Float)
     results_json = Column(JSON) # Step compare/score output
     
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=func.now())

@@ -25,7 +25,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
-from policy_parser import extract_text_with_tika as extract_text, clean_text, segment_clauses
+from policy_parser import extract_text
+from compliance_engine.clause_segmentation import clean_text, segment_clauses
 from compliance_engine.pipeline import run_comparison
 from compliance_engine.database import engine, SessionLocal, Base
 from compliance_engine import models
@@ -101,7 +102,7 @@ def health_check():
 @app.post("/tools/semantic-search", tags=["tools"])
 async def semantic_search(query: str, top_k: int = 5):
     """Perform a semantic search across the default indexed bank policy."""
-    from compliance_engine.embedder import PolicyIndex
+    from compliance_engine.clause_embedding import PolicyIndex
     # Load default bank policy index for demo
     index_path = Path("bank_policy.pdf.index")
     if not Path(str(index_path) + ".faiss").exists():
@@ -130,17 +131,23 @@ async def create_session(name_a: str = "Policy A", name_b: str = "Policy B"):
     """Initialize a new comparison session."""
     session_id = uuid.uuid4().hex
     db = SessionLocal()
-    new_job = models.ComparisonJob(
-        id=session_id,
-        status="active",
-        current_step="init",
-        name_a=name_a,
-        name_b=name_b
-    )
-    db.add(new_job)
-    db.commit()
-    db.close()
-    return {"session_id": session_id, "status": "created"}
+    try:
+        new_job = models.ComparisonJob(
+            id=session_id,
+            status="active",
+            current_step="init",
+            name_a=name_a,
+            name_b=name_b
+        )
+        db.add(new_job)
+        db.commit()
+        return {"session_id": session_id, "status": "created"}
+    except Exception as e:
+        db.rollback()
+        print(f"DATABASE ERROR: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
 
 @app.get("/sessions/{session_id}", tags=["sessions"])
 async def get_session(session_id: str):
@@ -187,14 +194,25 @@ async def step_segment(session_id: str):
     """STEP 2: Segment raw text into clauses/sub-clauses."""
     db = SessionLocal()
     job = db.query(models.ComparisonJob).filter(models.ComparisonJob.id == session_id).first()
-    if not job or not job.raw_text_a: raise HTTPException(400, "Parse step needed first")
+    if not job or not job.raw_text_a: 
+        db.close()
+        raise HTTPException(400, "Parse step needed first")
     
-    job.segments_a = segment_clauses(clean_text(job.raw_text_a), file_name=job.name_a)
-    job.segments_b = segment_clauses(clean_text(job.raw_text_b), file_name=job.name_b)
+    # Store needed data BEFORE commit
+    name_a = job.name_a
+    name_b = job.name_b
+    raw_a = job.raw_text_a
+    raw_b = job.raw_text_b
+
+    job.segments_a = segment_clauses(clean_text(raw_a), file_name=name_a)
+    job.segments_b = segment_clauses(clean_text(raw_b), file_name=name_b)
     job.current_step = "segment"
+    
+    seg_count = len(job.segments_a)
+    
     db.commit()
     db.close()
-    return {"status": "success", "step": "segment", "segments_count_a": len(job.segments_a)}
+    return {"status": "success", "step": "segment", "segments_count_a": seg_count}
 
 @app.post("/sessions/{session_id}/steps/embed", tags=["sessions"])
 async def step_embed(session_id: str):
@@ -217,7 +235,7 @@ async def step_compare(session_id: str):
     report = run_comparison_sync(job.segments_a, job.segments_b, job.name_a, job.name_b)
     
     job.results_json = report
-    job.overall_score = report.get("overall_compliance", 0)
+    job.overall_score = report.get("overall_compliance_pct", 0)
     job.current_step = "compare"
     db.commit()
     db.close()
@@ -228,10 +246,16 @@ async def step_score(session_id: str):
     """STEP 5: Calculate final compliance scores."""
     db = SessionLocal()
     job = db.query(models.ComparisonJob).filter(models.ComparisonJob.id == session_id).first()
+    if not job:
+        db.close()
+        raise HTTPException(404, "Session not found")
+        
     job.current_step = "score"
+    score = job.overall_score
+    
     db.commit()
     db.close()
-    return {"status": "success", "step": "score", "overall_score": job.overall_score}
+    return {"status": "success", "step": "score", "overall_score": score}
 
 @app.post("/sessions/{session_id}/steps/export", tags=["sessions"])
 async def step_export(session_id: str):
@@ -317,7 +341,7 @@ def _run_pdf_job(job_id: str, path_a: Path, path_b: Path,
                 status="done",
                 name_a=name_a,
                 name_b=name_b,
-                overall_score=report.get("overall_compliance", 0),
+                overall_score=report.get("overall_compliance_pct", 0),
                 results_json=report
             )
             db_session.add(db_job)
@@ -400,7 +424,7 @@ def poll_job(job_id: str):
             "policy_b": job.get("policy_b"),
         }
         if job["status"] == "done":
-            resp["overall_compliance"] = job["report"].get("overall_compliance")
+            resp["overall_compliance"] = job["report"].get("overall_compliance_pct")
             resp["export_url"] = f"/compare/{job_id}/export"
         if job["status"] == "error":
             resp["error"] = job.get("error")
@@ -463,12 +487,20 @@ def override_result(job_id: str, clause_a_id: str, new_status: str):
 @app.get("/compare/{job_id}/report", tags=["Comparison"])
 def get_full_report(job_id: str):
     """Retrieve the full comparison report JSON for a completed job."""
+    # Try memory
     job = _JOBS.get(job_id)
-    if not job:
-        raise HTTPException(404, "Job not found.")
-    if job["status"] != "done":
-        raise HTTPException(409, f"Job status is '{job['status']}', not done yet.")
-    return JSONResponse(job["report"])
+    if job and job.get("status") == "done":
+        return JSONResponse(job["report"])
+    
+    # Try Database
+    db_session = SessionLocal()
+    db_job = db_session.query(models.ComparisonJob).filter(models.ComparisonJob.id == job_id).first()
+    db_session.close()
+
+    if db_job and db_job.status == "done":
+        return JSONResponse(db_job.results_json)
+        
+    raise HTTPException(404, "Report not found or job is still in progress.")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -484,26 +516,39 @@ def export_report(
     Download the compliance report as Excel or PDF.
     `format=excel` (default) or `format=pdf`
     """
+    # 1. Check in-memory cache first
     job = _JOBS.get(job_id)
-    if not job:
-        raise HTTPException(404, "Job not found.")
-    if job["status"] != "done":
-        raise HTTPException(409, "Job not complete yet.")
+    report = None
+    pa, pb = "PolicyA", "PolicyB"
 
-    report = job["report"]
-    pa = job.get("policy_a", "PolicyA")
-    pb = job.get("policy_b", "PolicyB")
+    if job and job.get("status") == "done":
+        report = job["report"]
+        pa = job.get("policy_a", "PolicyA")
+        pb = job.get("policy_b", "PolicyB")
+    else:
+        # 2. Key fix: Fallback to Database if memory is wiped
+        db_session = SessionLocal()
+        db_job = db_session.query(models.ComparisonJob).filter(models.ComparisonJob.id == job_id).first()
+        db_session.close()
+
+        if db_job and db_job.status == "done":
+            report = db_job.results_json
+            pa = db_job.name_a
+            pb = db_job.name_b
+        
+    if not report:
+        raise HTTPException(404, "Job not found or not complete in both memory and database.")
 
     try:
         if format == "excel":
-            from compliance_engine.exporter import export_excel
+            from compliance_engine.output_dashboard import export_excel
             fname = _EXPORTS_DIR / f"{job_id}_report.xlsx"
             export_excel(report, str(fname))
             return FileResponse(str(fname),
                                 media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                                 filename="compliance_report.xlsx")
         else:
-            from compliance_engine.exporter import export_pdf
+            from compliance_engine.output_dashboard import export_pdf
             fname = _EXPORTS_DIR / f"{job_id}_report.pdf"
             export_pdf(report, pa, pb, str(fname))
             return FileResponse(str(fname),

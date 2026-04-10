@@ -17,9 +17,9 @@ import os
 import time
 from typing import Any, Callable
 
-from .embedder import PolicyIndex
-from .comparator import compare_clause
-from .scorer import compute_scores
+from .clause_embedding import PolicyIndex
+from .clause_matching_comparison import compare_clause
+from .scoring_system import compute_scores
 
 
 # ─────────────────────────────────────────────────────────────────────────────

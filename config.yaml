@@ -39,3 +39,8 @@ output:
   dir: "./output"
   chunk_format: "txt"               # "txt" | "json" | "md"
   overwrite_chunks: false
+
+# ── PDF Parsing ────────────────────────────────────────────────────────────────
+pdf_parsing:
+  library: "pdfplumber"             # "pdfplumber" | "tika"
+

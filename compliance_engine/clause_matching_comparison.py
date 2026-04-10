@@ -30,7 +30,7 @@ CONF = _load_config()
 LLM_CONF = CONF.get("llm", {})
 MATCH_CONF = CONF.get("matching", {})
 
-from .embedder import PolicyIndex
+from .clause_embedding import PolicyIndex
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Category detection
