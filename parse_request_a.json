@@ -1,4 +1,0 @@
-{
-  "text": "1 Data Security\nAll company data must be protected against unauthorized access.\n\n1.1 Encryption\nAll sensitive data must be encrypted using AES-256.\n- Encryption keys must be rotated every 90 days.\n- Access to encryption keys is restricted.\n\n1.2 Data Retention\nData must be retained for a minimum of 7 years.\n\u2022 Data older than 7 years must be deleted securely.\n\n2 Access Control\nAccess to systems must be role-based.\n\n2.1 User Authentication\nAll users must authenticate using multi-factor authentication (MFA).\n* Passwords must be at least 12 characters.\n* Passwords must be changed every 180 days.",
-  "file_name": "policy_a.txt"
-}

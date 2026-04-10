@@ -163,7 +163,7 @@ def test_parse_text():
 def test_parse_pdf():
     section("TEST 3 — POST /parse  (PDF upload)")
     import os
-    pdf = "bank_policy.pdf"
+    pdf = "app/data/bank_policy.pdf"
     if not os.path.exists(pdf):
         print("  ⚠️  bank_policy.pdf not found — skipping PDF parse test")
         return
@@ -236,7 +236,7 @@ def test_compare_json():
 def test_compare_pdf_async():
     section("TEST 5 — POST /compare/pdf  (async PDF job)")
     import os
-    pdfs = [p for p in ["bank_policy.pdf", "policy_3.pdf"] if os.path.exists(p)]
+    pdfs = [p for p in ["app/data/bank_policy.pdf", "app/data/policy_3.pdf"] if os.path.exists(p)]
     if len(pdfs) < 2:
         print("  ⚠️  Need 2 PDF files in project root — skipping async PDF test")
         print(f"       Found: {pdfs}")

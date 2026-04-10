@@ -15,7 +15,7 @@ DB_URL = os.environ.get("DATABASE_URL", DEFAULT_PG_URL)
 
 # Fallback to local SQLite only if explicitly requested or if PG fails (handled by engine)
 if not DB_URL:
-    DB_URL = "sqlite:///./policy_compliance.db"
+    DB_URL = "sqlite:///./app/data/policy_compliance.db"
 
 engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

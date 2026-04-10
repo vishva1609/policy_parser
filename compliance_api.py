@@ -104,8 +104,8 @@ async def semantic_search(query: str, top_k: int = 5):
     """Perform a semantic search across the default indexed bank policy."""
     from compliance_engine.clause_embedding import PolicyIndex
     # Load default bank policy index for demo
-    index_path = Path("bank_policy.pdf.index")
-    if not Path(str(index_path) + ".faiss").exists():
+    index_path = Path("app/data/bank_policy.pdf.index")
+    if not (Path(str(index_path) + ".faiss").exists()):
         return {"message": "Index not found. Please run Step 3 (Embed) first.", "results": []}
     
     idx = PolicyIndex.load(str(index_path))
