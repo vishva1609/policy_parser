@@ -1,0 +1,19 @@
+# ── Core Dependencies ────────────────────────────────────────────────────────
+pdfplumber
+nltk
+fastapi
+uvicorn[standard]
+python-multipart
+
+# ── Step 3: Embeddings + Vector DB ────────────────────────────────────────
+sentence-transformers
+faiss-cpu
+
+# ── Step 8: Export ────────────────────────────────────────────────────────
+openpyxl
+reportlab
+
+# ── Step 9: Database (PostgreSQL) ──────────────────────────────────────────
+sqlalchemy
+psycopg2-binary
+alembic

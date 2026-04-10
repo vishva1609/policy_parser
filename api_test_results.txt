@@ -1,0 +1,52 @@
+═════════════════════════════════════════════════════════════════
+  POLICY PARSER API  —  Full Test Suite
+═════════════════════════════════════════════════════════════════
+
+-----------------------------------------------------------------
+TEST 1 │ GET /health
+-----------------------------------------------------------------
+  Status Code : 200
+  Response    : {
+              "status": "ok",
+              "service": "policy-parser"
+}
+  Time        : 2120 ms
+  Result      : [PASS]
+
+-----------------------------------------------------------------
+TEST 2 │ POST /parse/text
+-----------------------------------------------------------------
+  Status Code    : 200
+  file_name      : test_policy.txt
+  total_segments : 3
+  Segments found :
+    [sub-clause  ] 3.1      │ Introduction
+    [sub-clause  ] 3.2      │ Data Retention
+    [sub-clause  ] 3.3      │ Security
+  Time           : 2090 ms
+  Result         : [PASS]
+
+-----------------------------------------------------------------
+TEST 3 │ POST /parse  (PDF upload — bank_policy.pdf)
+-----------------------------------------------------------------
+  Status Code    : 200
+  file_name      : bank_policy.pdf
+  total_segments : 27
+  First 5 segments:
+    [clause      ] PREAMBLE-0 │ ICICI Bank
+    [clause      ] 3        │ DATA PROTECTION POLICY.
+    [clause      ] 1        │ Preview
+    [sub-clause  ] 3.1      │ Introduction
+    [sub-clause  ] 3.2      │ Data Protection Terminology
+  Time           : 3670 ms
+  Result         : [PASS]
+
+═════════════════════════════════════════════════════════════════
+  FINAL SUMMARY
+═════════════════════════════════════════════════════════════════
+  [PASS]  GET /health
+  [PASS]  POST /parse/text
+  [PASS]  POST /parse (PDF)
+-----------------------------------------------------------------
+  3/3 tests passed
+═════════════════════════════════════════════════════════════════

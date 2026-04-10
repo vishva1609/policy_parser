@@ -1,12 +1,3 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -59,12 +50,27 @@ chroma.sqlite3
 *.ipynb
 
 # OS
+=======
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env/
+
+# OS files
+>>>>>>> Stashed changes
 .DS_Store
 Thumbs.db
 
 # Logs
 *.log
 
+<<<<<<< Updated upstream
 # Testing
 .pytest_cache/
 .coverage
@@ -74,3 +80,21 @@ htmlcov/
 *.tmp
 *.temp
 .env
+=======
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Output folders
+output/
+_exports/
+
+# PDF/Index files
+*.faiss
+*.meta
+
+# Ignore all nltk_data
+nltk_data/
+>>>>>>> Stashed changes
