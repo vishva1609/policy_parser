@@ -1,0 +1,78 @@
+{
+  "info": {
+    "name": "Policy Compliance AI Backend",
+    "_postman_id": "policy-ai-backend-v2",
+    "description": "Collection for testing the Policy Compliance Comparison API (Backend Only)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/health"
+      }
+    },
+    {
+      "name": "2. Simple Comparison (JSON)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clauses_a\": [\n    {\n      \"clause_id\": \"1.1\",\n      \"title\": \"Encryption\",\n      \"text\": \"Must use AES-256 for all data at rest.\"\n    }\n  ],\n  \"clauses_b\": [\n    {\n      \"clause_id\": \"SEC-1\",\n      \"title\": \"Data Security\",\n      \"text\": \"Standard AES-256 encryption is implemented across the platform.\"\n    }\n  ],\n  \"llm_backend\": \"rules\"\n}"
+        },
+        "url": "{{base_url}}/compare"
+      }
+    },
+    {
+      "name": "3. Upload & Compare (PDFs)",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {"key": "file_a", "type": "file", "src": "", "description": "Reference PDF"},
+            {"key": "file_b", "type": "file", "src": "", "description": "Target PDF"}
+          ]
+        },
+        "url": "{{base_url}}/compare/pdf?top_k=5&llm_backend=rules"
+      },
+      "description": "Upload two PDFs and start an async job. Returns a job_id."
+    },
+    {
+      "name": "4. Poll Job Status",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/compare/:job_id"
+      }
+    },
+    {
+      "name": "5. Get Full Report",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/compare/:job_id/report"
+      }
+    },
+    {
+      "name": "6. Export Excel",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/compare/:job_id/export?format=excel"
+      }
+    },
+    {
+      "name": "7. Export PDF",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/compare/:job_id/export?format=pdf"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ]
+}

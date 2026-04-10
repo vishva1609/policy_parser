@@ -30,8 +30,8 @@ output/
 !output/.gitkeep
 
 # Runtime uploads / generated artifacts (FastAPI sessions, tools, compare runs)
-app/data/**
-!app/data/**/.gitkeep
+# app/data/**
+# !app/data/**/.gitkeep
 
 # Sample PDFs (optional - uncomment if you don't want to commit samples)
 samples/*.pdf
@@ -41,8 +41,8 @@ samples/*.pdf
 .cache/
 
 # ChromaDB
-*.db
-*.sqlite3
+# *.db
+# *.sqlite3
 chroma.sqlite3
 
 # Jupyter
@@ -92,8 +92,8 @@ output/
 _exports/
 
 # PDF/Index files
-*.faiss
-*.meta
+# *.faiss
+# *.meta
 
 # Ignore all nltk_data
 nltk_data/
